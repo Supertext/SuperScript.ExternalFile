@@ -83,7 +83,9 @@ Below is a list of some of the more important classes in the `SuperScript.Extern
 
 * File handlers
 
-  `SuperScript.ExternalFile` provides the means for handling the HTTP requests for these seperate files, as well as the
+  `SuperScript.ExternalFile` provides the means for handling the HTTP requests for these seperate files, as well as their wiring.
+  
+  Handlers are also provided for the webpage interface which can be used for managing the underlying storage.
 
 * Configuration classes
 
