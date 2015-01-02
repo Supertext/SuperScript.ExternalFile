@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{25F30C61-59AE-466E-82DA-FE2D3D582C07}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SuperScript.ExternalFile</RootNamespace>
+    <AssemblyName>SuperScript.ExternalFile</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\Classes\HandlerMappings.cs" />
+    <Compile Include="Configuration\Classes\Storage\DbStorageProvider\DbProviderElement.cs" />
+    <Compile Include="Configuration\Classes\Storage\StorageElement.cs" />
+    <Compile Include="Configuration\Classes\ExternalFileConfig.cs" />
+    <Compile Include="Configuration\Settings.cs" />
+    <Compile Include="Enumerations\Enumerations.cs" />
+    <Compile Include="Exceptions\CustomExceptions.cs" />
+    <Compile Include="ExtensionMethods\ConfigurationExtensions.cs" />
+    <Compile Include="Handlers\List.ashx.cs">
+      <DependentUpon>List.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\Remove.ashx.cs">
+      <DependentUpon>Remove.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\ReInit.ashx.cs">
+      <DependentUpon>ReInit.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\Init.ashx.cs">
+      <DependentUpon>Init.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\Empty.ashx.cs">
+      <DependentUpon>Empty.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\Delete.ashx.cs">
+      <DependentUpon>Delete.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Modifiers\Writers\ExternalScriptWriter.cs" />
+    <Compile Include="Handlers\Get.ashx.cs">
+      <DependentUpon>Get.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\List.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>List.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\Implementations\DbStore.cs" />
+    <Compile Include="Storage\Implementations\FileStore.cs" />
+    <Compile Include="Storage\Interfaces\IDbStore.cs" />
+    <Compile Include="Storage\Interfaces\IDbStoreProvider.cs" />
+    <Compile Include="Storage\Interfaces\IStorable.cs" />
+    <Compile Include="Storage\Implementations\Storable.cs" />
+    <Compile Include="UrlHelpers\QueryStringKeys.cs" />
+    <Compile Include="Storage\Exceptions\CustomExceptions.cs" />
+    <Compile Include="Storage\Implementations\IsoStore.cs" />
+    <Compile Include="Storage\Interfaces\IStore.cs" />
+    <Compile Include="UrlHelpers\QueryString.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperScript.Common\SuperScript.Common.csproj">
+      <Project>{6eb032a6-96d9-4e1d-9e8b-1bc5174a7d09}</Project>
+      <Name>SuperScript.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <Content Include="Handlers\Empty.ashx" />
+    <Content Include="Handlers\Delete.ashx" />
+    <Content Include="Handlers\Init.ashx" />
+    <Content Include="Handlers\ReInit.ashx" />
+    <Content Include="Handlers\Remove.ashx" />
+    <Content Include="Handlers\List.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Handlers\Get.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\List.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>List.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

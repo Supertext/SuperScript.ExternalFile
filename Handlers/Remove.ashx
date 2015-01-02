@@ -1,0 +1,1 @@
+﻿<%@ WebHandler Language="C#" CodeBehind="Remove.ashx.cs" Class="SuperScript.ExternalFile.Handlers.Remove" %>
