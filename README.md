@@ -11,10 +11,10 @@ This is the functionality offered by SuperScript.
 
 
 
-##Relocate Assets into a Seperate File
+##Relocate Assets into a Separate File
 
 The most obvious use case for this is JavaScript. Why write lots of oft-used JavaScript in the _.html_ file when SuperScript
-can move this into a seperate file? Not only does this make the JavaScript elegibile for caching but it also allows for 
+can move this into a separate file? Not only does this make the JavaScript elegibile for caching but it also allows for 
 more secure webpages through use of HTML5's [Content Security Policy](http://en.wikipedia.org/wiki/Content_Security_Policy).
 
 To implement this a developer can make JavaScript declarations as with other SuperScript assemblies (for example, see
@@ -22,10 +22,10 @@ To implement this a developer can make JavaScript declarations as with other Sup
 in general, is in providing a storage means for the files and an implementation of `SuperScript.Modifiers.ModifierBase` which
 is the object that does the relocation.
 
-`SuperScript.ExternalFile` also includes handlers for handling the HTTP request for the seperate file.
+`SuperScript.ExternalFile` also includes handlers for handling the HTTP request for the separate file.
 
 Furthermore, `SuperScript.ExternalFile` also comes with a web interface for monitoring and managing the store where the 
-seperate files live.
+separate files live.
 
 _**IMPORTANT NOTE:**_ A future version of `SuperScript.ExternalFile` will have the intelligence to delete the files once 
 their lifetime has run. Until then, the files need to be manually deleted.
@@ -36,7 +36,7 @@ their lifetime has run. Until then, the files need to be manually deleted.
 
 * Database storage
 
-  This allows the contents of the seperate file to be stored in a database. See `SuperScript.ExternalFile.MySql` and 
+  This allows the contents of the separate file to be stored in a database. See `SuperScript.ExternalFile.MySql` and 
   `SuperScript.ExternalFile.SqlServer`.
   This requires implementations of `SuperScript.ExternalFile.Storage.IDbStore` and `IDbStoreProvider`, which allows for 
   third party database storage providers to be built.
