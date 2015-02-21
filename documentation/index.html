@@ -147,8 +147,8 @@
   For an <em>.aspx</em> WebForm:
 </p>
 
-<pre>
-  <%: Declarations.EmitFor("externalJavascript") %>
+<pre class="brush: html">
+	<%: Declarations.EmitFor("externalJavascript") %>
 </pre>
 
 <p>
@@ -156,7 +156,7 @@
 </p>
 
 <pre class="brush: razor">
-  @Declarations.EmitFor("externalJavascript")
+	@Declarations.EmitFor("externalJavascript")
 </pre>
 
 <p>
@@ -178,16 +178,14 @@
 </p>
 
 <pre class="brush: js">
-	&lt;script type="text/javascript"&gt;
-		$(function() {
-			var demoArray = [1, 2, 3];
-			doSomething("hello world", 1);
-			/* Comments will not be emitted when debug=false */
-			var DayOfWeek = { "Sunday": 0, "Monday": 1, "Tuesday": 2, "Wednesday": 3, "Thursday": 4, "Friday": 5, "Saturday": 6 };
-			var demoObject = {"Prop1":"hello world","Prop2":1};
-			var demoVar = 100;
-		});
-	&lt;/script&gt;
+	$(function() {
+		var demoArray = [1, 2, 3];
+		doSomething("hello world", 1);
+		/* Comments will not be emitted when debug=false */
+		var DayOfWeek = { "Sunday": 0, "Monday": 1, "Tuesday": 2, "Wednesday": 3, "Thursday": 4, "Friday": 5, "Saturday": 6 };
+		var demoObject = {"Prop1":"hello world","Prop2":1};
+		var demoVar = 100;
+	});
 </pre>
 
 
@@ -196,10 +194,23 @@
 </p>
 
 <pre class="brush: js">
-	&lt;script type="text/javascript"&gt;
-		$(function() {
-			var demoArray=[1,2,3];doSomething("hello world",1);var DayOfWeek={Sunday:0,Monday:1,Tuesday:2,Wednesday:3,
-			Thursday:4,Friday:5,Saturday:6},demoObject={Prop1:"hello world",Prop2:1},demoVar=100
-		});
-	&lt;/script&gt;
+	$(function() {
+		var demoArray=[1,2,3];doSomething("hello world",1);var DayOfWeek={Sunday:0,Monday:1,Tuesday:2,Wednesday:3,
+		Thursday:4,Friday:5,Saturday:6},demoObject={Prop1:"hello world",Prop2:1},demoVar=100
+	});
 </pre>
+
+<h3>What next?</h3>
+
+<p>
+	SuperScript.ExternalFile contains options for
+</p>
+
+<ul>
+	<li>the HTML tag used for referencing the file</li>
+	<li>the attribute used in the HTML tag referencing the file</li>
+	<li>the lifetime/longevity of the file (<em>i.e,</em>, whether it should be retrievable only once or for multiple requests)</li>
+	<li>the <em>cacheable</em> header of the file</li>
+	<li>the filename</li>
+	<li>the location used for storing the file's contents</li>
+</ul>
