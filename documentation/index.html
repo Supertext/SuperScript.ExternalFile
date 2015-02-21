@@ -77,7 +77,6 @@
 					&lt;modifier type="SuperScript.JavaScript.Modifiers.Converters.JavaScriptStringify, SuperScript.JavaScript" /&gt;
 				&lt;/converters&gt;
 				&lt;postModifiers&gt;
-					&lt;modifier emitMode="LiveOnly" type="SuperScript.JavaScript.Modifiers.Post.JavaScriptMinifier, SuperScript.JavaScript" /&gt;
 					&lt;modifier type="SuperScript.JavaScript.Modifiers.Post.WhenReady, SuperScript.JavaScript" /&gt;
 				&lt;/postModifiers&gt;
 				&lt;writers&gt;
@@ -89,9 +88,9 @@
 </pre>
 
 <p>
-	The above example is the same example as is described in detail <a href="http://supertext.github.io/SuperScript.JavaScript/" target="_blank">here</a>, and 
-	a detailed description of the classes used as well as their configured options can be found at that link, so won't be repeated here. However,
-	an important difference lies in the <code>&lt;writers&gt;</code> `.
+	The above example is almost the same example as is described in detail <a href="http://supertext.github.io/SuperScript.JavaScript/" target="_blank">here</a>, and 
+	a detailed description of the classes used as well as their configured options can be found at that link and so won't be repeated here. However,
+	an important difference lies in the <code>&lt;writers&gt;</code> element.
 </p>
 
 <p>
@@ -160,8 +159,7 @@
 </pre>
 
 <p>
-  When the page source is viewed in the browser, the following will be found in a location corresponding to the above call
-  to <code>EmitFor</code>:
+  When the page source is viewed in the browser the following will be found in a location corresponding to the above <code>EmitFor</code> call:
 </p>
 
 <pre class="brush: html">
@@ -174,7 +172,7 @@
 </p>
 
 <p>
-  When the contents of the file are viewed, the following will be found (assuming <code>debug</code> is set to <code>true</code>):
+  When the contents of the file are viewed the following will be found:
 </p>
 
 <pre class="brush: js">
@@ -188,18 +186,6 @@
 	});
 </pre>
 
-
-<p>
-	If <code>debug</code> is set to <code>false</code> then the following content is obtained:
-</p>
-
-<pre class="brush: js">
-	$(function() {
-		var demoArray=[1,2,3];doSomething("hello world",1);var DayOfWeek={Sunday:0,Monday:1,Tuesday:2,Wednesday:3,
-		Thursday:4,Friday:5,Saturday:6},demoObject={Prop1:"hello world",Prop2:1},demoVar=100
-	});
-</pre>
-
 <h3>What next?</h3>
 
 <p>
@@ -208,9 +194,9 @@
 
 <ul>
 	<li>the HTML tag used for referencing the file</li>
-	<li>the attribute used in the HTML tag referencing the file</li>
-	<li>the lifetime/longevity of the file (<em>i.e,</em>, whether it should be retrievable only once or for multiple requests)</li>
-	<li>the <em>cacheable</em> header of the file</li>
+	<li>attributes used in the HTML tag referencing the file</li>
+	<li>the lifetime/longevity of the file (<em>i.e</em>, whether it should be retrievable only once or for multiple requests)</li>
+	<li>the <em>cache</em> header of the file</li>
 	<li>the filename</li>
 	<li>the location used for storing the file's contents</li>
 </ul>
