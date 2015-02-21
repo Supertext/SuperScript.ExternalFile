@@ -1,1 +1,0 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="ReInit.ashx.cs" Class="SuperScript.ExternalFile.Handlers.ReInit" %>
