@@ -1,1 +1,0 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="Empty.ashx.cs" Class="SuperScript.ExternalFile.Handlers.Empty" %>
