@@ -1,0 +1,205 @@
+<h2>What Does It Do?</h2>
+
+<p>
+	This library is an add-on for <a href="https://github.com/Supertext/SuperScript.Common/" target="_blank">SuperScript</a>. It is strongly recommended
+	to read the <a href="http://supertext.github.io/SuperScript.Common/" target="_blank">documentation</a> for the core project before proceeding with this 
+	library. If you haven't yet read the core documentation then it is recommended that you start by reading about the 
+	<a href="http://supertext.github.io/SuperScript.Common/#!/core-concepts" target="_blank">core concepts</a>.
+</p>
+
+<p>
+	SuperScript.ExternalFile adds functionality for emitting entities in external files.
+</p>
+
+<p>
+	While the <a href="https://github.com/Supertext/SuperScript.Common" target="_blank">SuperScript</a> library contains the core functionality for
+	making and emitting declarations, SuperScript.ExternalFile contains a means of emitting the declarations in a file, then inserting a reference to this file
+	on the HTML page.
+</p>
+<p>
+  Broadly speaking, SuperScript has three main aspects: <a href="http://supertext.github.io/SuperScript.Common/#!/declarations.declarations" target="_blank">declarations</a>, 
+	which are instances of <abbr title="SuperScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>, and 
+	<a href="http://supertext.github.io/SuperScript.Common/#!/emitters.emitters" target="_blank">emitters</a>, which consist of a combination of 
+	<a href="http://supertext.github.io/SuperScript.Common/#!/modifiers.modifiers" target="_blank">modifiers</a> and 
+	<a href="http://supertext.github.io/SuperScript.Common/#!/modifiers.html-writer" target="_blank">writers</a>.
+</p>
+
+<p>
+	SuperScript.ExternalFile therefore consists of an implementation of <abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr> which
+	offers configuration options.
+</p>
+
+<h3>Example</h3>
+
+<p>
+	This library covers two aspects of moving and storing entities in external files:
+</p>
+
+<ul>
+  <li>the external file itself: the filename, file extension, location and lifetime or longevity</li>
+  <li>management of the file(s): viewing and removing current files.</li>
+</ul>
+
+<p>
+  <strong>Important: </strong> SuperScript.ExternalFile does not currently automatically remove files which are set
+  to <abbr title="SuperScript.Longevity.Reuse"><code>Longevity.Reuse</code></abbr>. However, SuperScript.ExternalFile <em>does</em>
+  automatically remove files which are set  to <abbr title="SuperScript.Longevity.SingleUse"><code>Longevity.SingleUse</code></abbr>. 
+  Automated cleanup of reusable files will be included in a future release.
+</p>
+
+<p>
+	The following code offers an example which demonstrates the declaring of some JavaScript entities, then the emitting of these
+	entities in an external file. Note that the JavaScript entities in this example make use of 
+	<a href="http://supertext.github.io/SuperScript.JavaScript/" target="_blank">SuperScript.JavaScript</a>.
+</p>
+
+<p>
+	First of all, configure an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>. In this
+	example the <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> will be configured
+	in the config file.
+</p>
+
+<pre class="brush: xml">
+	&lt;configuration&gt;
+		&lt;configSections&gt;
+			&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+			&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
+			&lt;section name="superScript.ExternalFile" type="SuperScript.ExternalFile.Configuration.ExternalFileConfig, SuperScript.ExternalFile" /&gt;
+		&lt;/configSections&gt;
+	&lt;/configuration&gt;
+	&#10;
+	&hellip;
+	&#10;
+	&lt;superScript&gt;
+		&lt;emitters&gt;
+			&lt;emitter key="externalJavascript"&gt;
+				&lt;converters&gt;
+					&lt;modifier type="SuperScript.JavaScript.Modifiers.Converters.JavaScriptStringify, SuperScript.JavaScript" /&gt;
+				&lt;/converters&gt;
+				&lt;postModifiers&gt;
+					&lt;modifier emitMode="LiveOnly" useWhenBundled="false" type="SuperScript.JavaScript.Modifiers.Post.JavaScriptMinifier, SuperScript.JavaScript" /&gt;
+					&lt;modifier type="SuperScript.JavaScript.Modifiers.Post.WhenReady, SuperScript.JavaScript" /&gt;
+				&lt;/postModifiers&gt;
+				&lt;writers&gt;
+					&lt;modifier type="SuperScript.ExternalFile.Modifiers.Writers.ExternalScriptWriter, SuperScript.ExternalFile" /&gt;
+				&lt;/writers&gt;
+			&lt;/emitter&gt;
+		&lt;/emitters&gt;
+	&lt;/superScript&gt;
+</pre>
+
+<p>
+	The above example is the same example as is described in detail <a href="http://supertext.github.io/SuperScript.JavaScript/" target="_blank">here</a>, and 
+	a detailed description of the classes used as well as their configured options can be found at that link, so won't be repeated here. However,
+	an important difference lies in the <code>&lt;writers&gt;</code> element.
+</p>
+
+<p>
+	You can also read more about emitters <a href="http://supertext.github.io/SuperScript/emitters/emitters.html" target="_blank">here</a>.
+</p>
+
+<p>
+  The <code>&lt;writers&gt;</code> element in the above example references the 
+  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalScriptWriter"><code>ExternalScriptWriter</code</abbr> implementation 
+  of the abstract <abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr> class.
+</p>
+
+<p>
+	Let's add some JavaScript-oriented declarations.
+</p>
+
+<pre class="brush: c#">
+	using SuperScript.JavaScript;
+	&#10;
+	Declarations.AddArray(opt => opt.Elements(new object[] { 1, 2, 3 })
+								.EmitterKey("externalJavascript")
+								.Name("demoArray")
+								.Type(typeof (System.Int32)));
+	
+	Declarations.AddCall(opt => opt.EmitterKey("externalJavascript")
+							.FunctionName("doSomething")
+							.Parameters("hello world", 1));
+	
+	Declarations.AddComment(opt => opt.Comment("Comments will not be emitted when debug=false")
+								.EmitterKey("externalJavascript"));
+	
+	Declarations.AddEnum(opt => opt.EmitterKey("externalJavascript")
+							.Type(typeof (System.DayOfWeek)));
+	
+	Declarations.AddObject(opt => opt.EmitterKey("externalJavascript")
+								.Name("demoObject")
+								.Value(new
+								{
+									Prop1 = "hello world",
+									Prop2 = 1
+								}));
+	
+	Declarations.AddVariable(opt => opt.EmitterKey("externalJavascript")
+								.Name("demoVar")
+								.Value(100));
+</pre>
+
+<p>
+  Let's now request the output of this <em>externalJavascript</em> emitter.
+</p>
+
+<p>
+  For an <em>.aspx</em> WebForm:
+</p>
+
+<pre>
+  <%: Declarations.EmitFor("externalJavascript") %>
+</pre>
+
+<p>
+  Or an MVC Razor view:
+</p>
+
+<pre class="brush: razor">
+  @Declarations.EmitFor("externalJavascript")
+</pre>
+
+<p>
+  When the page source is viewed in the browser, the following will be found in a location corresponding to the above call
+  to <code>EmitFor</code>:
+</p>
+
+<pre class="brush: html">
+  <script src="/files/mJzHRJsEFTFkeOO4CXUfaQ.js" type="text/javascript"></script>
+</pre>
+
+<p>
+  <strong>Important: </strong> the filename is built using an MD5 hash of the file's contents. Therefore, each different file will
+  be assigned a unique filename.
+</p>
+
+<p>
+  When the contents of the file are viewed, the following will be found (assuming <code>debug</code> is set to <code>true</code>):
+</p>
+
+<pre class="brush: js">
+	&lt;script type="text/javascript"&gt;
+		$(function() {
+			var demoArray = [1, 2, 3];
+			doSomething("hello world", 1);
+			/* Comments will not be emitted when debug=false */
+			var DayOfWeek = { "Sunday": 0, "Monday": 1, "Tuesday": 2, "Wednesday": 3, "Thursday": 4, "Friday": 5, "Saturday": 6 };
+			var demoObject = {"Prop1":"hello world","Prop2":1};
+			var demoVar = 100;
+		});
+	&lt;/script&gt;
+</pre>
+
+
+<p>
+	If <code>debug</code> is set to <code>false</code> then the following content is obtained:
+</p>
+
+<pre class="brush: js">
+	&lt;script type="text/javascript"&gt;
+		$(function() {
+			var demoArray=[1,2,3];doSomething("hello world",1);var DayOfWeek={Sunday:0,Monday:1,Tuesday:2,Wednesday:3,
+			Thursday:4,Friday:5,Saturday:6},demoObject={Prop1:"hello world",Prop2:1},demoVar=100
+		});
+	&lt;/script&gt;
+</pre>
