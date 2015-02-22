@@ -18,7 +18,7 @@ namespace SuperScript.ExternalFile.Modifiers.Writers
     /// <para>references the contents in an HTML tag.</para>
     /// <para>An instance of this class will be processed after any implementations of the abstract class <see cref="CollectionPostModifier"/>.</para>
     /// </summary>
-    public class ExternalScriptWriter : HtmlWriter
+    public class ExternalFileWriter : HtmlWriter
     {
         //  the implementation of IStore to be used for storing the file contents.
         private IStore _storeProvider;

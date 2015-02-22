@@ -1,0 +1,16 @@
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\bin\Debug\SuperScript.ExternalFile.dll.config
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\bin\Debug\SuperScript.ExternalFile.dll
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\bin\Debug\SuperScript.ExternalFile.pdb
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\bin\Debug\SuperScript.Common.dll
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\bin\Debug\SuperScript.Common.pdb
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\bin\Debug\HtmlAgilityPack.xml
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\obj\Debug\SuperScript.ExternalFile.csprojResolveAssemblyReference.cache
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\obj\Debug\SuperScript.ExternalFile.Resources.List.resources
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\obj\Debug\SuperScript.ExternalFile.csproj.GenerateResource.Cache
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\obj\Debug\SuperScript.ExternalFile.dll
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\obj\Debug\SuperScript.ExternalFile.pdb
+C:\Users\Andrew\Documents\Visual Studio 2012\Projects\SuperScriptLibrary\SuperScript.ExternalFile\bin\Debug\SuperScript.Common.xml

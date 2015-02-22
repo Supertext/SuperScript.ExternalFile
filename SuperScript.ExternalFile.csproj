@@ -74,7 +74,7 @@
     <Compile Include="Handlers\Delete.ashx.cs">
       <DependentUpon>Delete.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Modifiers\Writers\ExternalScriptWriter.cs" />
+    <Compile Include="Modifiers\Writers\ExternalFileWriter.cs" />
     <Compile Include="Handlers\Get.ashx.cs">
       <DependentUpon>Get.ashx</DependentUpon>
     </Compile>
