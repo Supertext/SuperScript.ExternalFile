@@ -1,0 +1,108 @@
+<h2>HandlerPath option</h2>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.HandlerPath"><code>HandlerPath</code></abbr> option
+  allows setting the path of the HTML handler which returns the file.
+</p>
+
+<pre class="brush: c#">
+  public string HandlerPath { get; set; }
+</pre>
+
+<p>
+  The default value is "/Files/".
+</p>
+
+<p>
+  The value set for this property <em>must match</em> the value set in the "<em>path</em>" attribute set in the relevand handler
+  as configured in the configuration file.
+</p>
+
+<p>
+  For example, the configuration file should have the following element:
+</p>
+
+<pre class="brush: xml">
+  &lt;system.webServer&gt;
+    &lt;handlers&gt;
+      &#10;
+      &lt;add name="GetHandler" verb="GET" path="files" type="SuperScript.ExternalFile.Handlers.Get" /&gt;
+      &#10;
+    &lt;/handlers&gt;
+  &lt;/system.webServer&gt;
+</pre>
+
+<p>
+  If the <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.HandlerPath"><code>HandlerPath</code></abbr> property 
+  is changed from the default value then the "<em>path</em>" attribute as shown in the above snippet must be set to the same value.
+</p>
+
+<h3>Configuring HandlerPath</h3>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.HandlerPath"><code>HandlerPath</code></abbr> option
+  may be configured programmatically or declaratively in the configuration file.
+</p>
+
+<h4>Configuring HandlerPath programmatically</h4>
+
+<p>
+  The following example shows the creation of a new emitter which is configured with its <abbr title="SuperScript.Emitters.IEmitter.HtmlWriter"><code>HtmlWriter</code></abbr> property
+  set to an instance of <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter"><code>ExternalFileWriter</code></abbr> which has the 
+  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.HandlerPath"><code>HandlerPath</code></abbr> property set to "scripts":
+</p>
+
+<p>
+  <em>It should be remembered that the default file extension is "js".</em>
+</p>
+
+<pre class="brush: c#">
+  IEmitter emitter = new StandardEmitter
+                         {
+                             HtmlWriter = new ExternalFileWriter
+                                              {
+                                                  HandlerPath = "scripts"
+                                              }
+                         }
+</pre>
+
+<h4>Declaring HandlerPath in the config file</h4>
+
+<p>
+  The following example shows the same declaration as above, as declared in a config file.
+</p>
+
+<pre class="brush: xml">
+    &lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+    &lt;section name="superScript.ExternalFile" type="SuperScript.ExternalFile.Configuration.ExternalFileConfig, SuperScript.ExternalFile" /&gt;
+    &#10;
+    &lt;system.webServer&gt;
+      &lt;handlers&gt;
+        &#10;
+        &lt;add name="GetHandler" verb="GET" path="scripts" type="SuperScript.ExternalFile.Handlers.Get" /&gt;
+        &#10;
+      &lt;/handlers&gt;
+    &lt;/system.webServer&gt;
+    &#10;
+    &lt;superScript&gt;
+      &lt;emitters&gt;
+        &lt;emitter key="externalJavascript"&gt;
+          &lt;writers&gt;
+            &lt;modifier type="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter, SuperScript.ExternalFile"&gt;
+              &lt;properties&gt;
+                &lt;property name="HandlerPath" value="scripts" type="System.String, mscorlib" /&gt;
+              &lt;/properties&gt;
+            &lt;/modifier&gt;
+          &lt;/writers&gt;
+        &lt;/emitter&gt;
+      &lt;/emitters&gt;
+    &lt;/superScript&gt;
+</pre>
+
+<p>
+  Both the above examples will emit the following result on the HTML page at the location where <code>Emit.For("externalJavascript")</code> is called:
+</p>
+
+<pre class="brush: html">
+  <script type="/scripts/[hash of the file's contents].js" type="text/javascript"></script>
+</pre>
