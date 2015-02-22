@@ -1,0 +1,81 @@
+<h2>FileName option</h2>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.FileName"><code>FileName</code></abbr> option
+  allows setting the name of the returned file.
+</p>
+
+<pre class="brush: c#">
+  public string FileName { get; set; }
+</pre>
+
+<p>
+  If not set, SuperScript will use an MD5 hash of the file's contents as the filename.
+</p>
+
+<p>
+  The getter for <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.FileName"><code>FileName</code></abbr> will 
+  not return the hash which may later be used; the getter will only return an explicitly set value.
+</p>
+
+<h3>Configuring FileName</h3>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.FileName"><code>FileName</code></abbr> option
+  may be configured programmatically or declaratively in the configuration file.
+</p>
+
+<h4>Configuring FileName programmatically</h4>
+
+<p>
+  The following example shows the creation of a new emitter which is configured with its <abbr title="SuperScript.Emitters.IEmitter.HtmlWriter"><code>HtmlWriter</code></abbr> property
+  set to an instance of <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter"><code>ExternalFileWriter</code></abbr> which has the 
+  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.FileName"><code>FileName</code></abbr> property set to "user-details":
+</p>
+
+<p>
+  <em>It should be remembered that the default file extension is "js".</em>
+</p>
+
+<pre class="brush: c#">
+  IEmitter emitter = new StandardEmitter
+                         {
+                             HtmlWriter = new ExternalFileWriter
+                                              {
+                                                  FileName = "user-details"
+                                              }
+                         }
+</pre>
+
+<h4>Declaring FileName in the config file</h4>
+
+<p>
+  The following example shows the same declaration as above, as declared in a config file.
+</p>
+
+<pre class="brush: xml">
+    &lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+    &lt;section name="superScript.ExternalFile" type="SuperScript.ExternalFile.Configuration.ExternalFileConfig, SuperScript.ExternalFile" /&gt;
+    &#10;
+    &lt;superScript&gt;
+      &lt;emitters&gt;
+        &lt;emitter key="externalJavascript"&gt;
+          &lt;writers&gt;
+            &lt;modifier type="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter, SuperScript.ExternalFile"&gt;
+              &lt;properties&gt;
+                &lt;property name="FileName" value="user-details" type="System.String, mscorlib" /&gt;
+              &lt;/properties&gt;
+            &lt;/modifier&gt;
+          &lt;/writers&gt;
+        &lt;/emitter&gt;
+      &lt;/emitters&gt;
+    &lt;/superScript&gt;
+</pre>
+
+<p>
+  Both the above examples will emit the following result on the HTML page at the location where <code>Emit.For("externalJavascript")</code> is called:
+</p>
+
+<pre class="brush: html">
+  <script type="user-details.js" type="text/javascript"></script>
+</pre>
