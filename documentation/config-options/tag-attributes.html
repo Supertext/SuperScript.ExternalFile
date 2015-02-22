@@ -1,0 +1,48 @@
+<h2>TagAttributes option</h2>
+
+<p>
+  Gets or sets a collection of key-value pairs which form the tag's attribute collection.
+</p>
+
+<pre class="brush: c#">
+  public virtual IEnumerable<KeyValuePair<string, string>> TagAttributes { get; set; }
+</pre>
+
+<p>
+  The default value is <code>type="text/javascript>"</code>.
+</p>
+
+<h3>Configuring TagAttributes</h3>
+
+<p>
+  The following example shows the creation of a new emitter which is configured with its <abbr title="SuperScript.Emitters.IEmitter.HtmlWriter"><code>HtmlWriter</code></abbr> property
+  set to an instance of <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter"><code>ExternalFileWriter</code></abbr> which has the 
+  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.TagAttributes"><code>TagAttributes</code></abbr> property set to <em>text="application/xml"</em>:
+</p>
+
+<pre class="brush: c#">
+  IEmitter emitter = new StandardEmitter
+                         {
+                             HtmlWriter = new ExternalFileWriter
+                                              {
+                                                TagAttributes = new List<KeyValuePair<string, string>>
+                                                                    {
+                                                                        new KeyValuePair<string, string>("type", "application/xml")
+                                                                    }
+                                              }
+                         }
+</pre>
+
+<p>
+  Unlike other properties on the <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter"><code>ExternalFileWriter</code></abbr>, the 
+  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.TagAttributes"><code>TagAttributes</code></abbr> property
+  cannot be set in the config file.
+</p>
+
+<p>
+  The above example will emit the following result on the HTML page at the location where <code>Emit.For("externalJavascript")</code> is called: 
+</p>
+
+<pre class="brush: html">
+  <script href="/files/[hash of the file's contents].js" type="application/xml"></script>
+</pre>
