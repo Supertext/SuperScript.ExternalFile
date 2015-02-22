@@ -1,0 +1,110 @@
+<h2>MakeUnique option</h2>
+
+<p>
+  Gets or sets whether a hash of the contents should be appended as a query-string.
+</p>
+
+<pre class="brush: c#">
+  public bool MakeUnique { get; set; }
+</pre>
+
+<p>
+  If no <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.FileName"><code>FileName</code></abbr> is specified 
+  then a hash will be used for the <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.FileName"><code>FileName</code></abbr>; 
+  If the hash is used as the <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.FileName"><code>FileName</code></abbr> then 
+  it will not be appended as a query-string.
+</p>
+
+<p>
+  The default value is <c>true</c>.
+</p>
+
+<p>
+  The following table may help to explain the relationship between <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.FileName"><code>FileName</code></abbr> and 
+  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.MakeUnique"><code>MakeUnique</code></abbr>.
+</p>
+
+<table class="table table-bordered">
+  <thead>
+      <tr>
+          <th>FileName</th>
+          <th>MakeUnique</th>
+          <th>Example output filename</th>
+      </tr>
+  </thead>
+  <tr>
+      <td><c>null</c></td>
+      <td><c>true</c></td>
+      <td>mJzHRJsEFTFkeOO4CXUfaQ.js</td>
+  </tr>
+  <tr>
+      <td>"user-details"</td>
+      <td><c>true</c></td>
+      <td>user-details.js?h=mJzHRJsEFTFkeOO4CXUfaQ</td>
+  </tr>
+  <tr>
+      <td><c>null</c></td>
+      <td><c>false</c></td>
+      <td>mJzHRJsEFTFkeOO4CXUfaQ.js</td>
+  </tr>
+  <tr>
+      <td>"user-details"</td>
+      <td><c>false</c></td>
+      <td>user-details.js</td>
+  </tr>
+</table>
+
+<p>
+  The last example in the above table shows that if a filename is explicitly set and <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.MakeUnique"><code>MakeUnique</code></abbr> is 
+  set to <c>false</c>, a file's contents may be overwritten by a later request. This situation may or may not cause a problem.
+</p>
+
+<h3>Configuring MakeUnique</h3>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.MakeUnique"><code>MakeUnique</code></abbr> option
+  may be configured programmatically or declaratively in the configuration file.
+</p>
+
+<h4>Configuring MakeUnique programmatically</h4>
+
+<p>
+  The following example shows the creation of a new emitter which is configured with its <abbr title="SuperScript.Emitters.IEmitter.HtmlWriter"><code>HtmlWriter</code></abbr> property
+  set to an instance of <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter"><code>ExternalFileWriter</code></abbr> which has the 
+  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.MakeUnique"><code>MakeUnique</code></abbr> property set to <c>false</c>:
+</p>
+
+<pre class="brush: c#">
+  IEmitter emitter = new StandardEmitter
+                         {
+                             HtmlWriter = new ExternalFileWriter
+                                              {
+                                                  MakeUnique = false
+                                              }
+                         }
+</pre>
+
+<h4>Declaring MakeUnique in the config file</h4>
+
+<p>
+  The following example shows the same declaration as above, as declared in a config file.
+</p>
+
+<pre class="brush: xml">
+    &lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+    &lt;section name="superScript.ExternalFile" type="SuperScript.ExternalFile.Configuration.ExternalFileConfig, SuperScript.ExternalFile" /&gt;
+    &hellip;
+    &lt;superScript&gt;
+      &lt;emitters&gt;
+        &lt;emitter key="externalJavascript"&gt;
+          &lt;writers&gt;
+            &lt;modifier type="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter, SuperScript.ExternalFile"&gt;
+              &lt;properties&gt;
+                &lt;property name="MakeUnique" value="false" type="System.Boolean, mscorlib" /&gt;
+              &lt;/properties&gt;
+            &lt;/modifier&gt;
+          &lt;/writers&gt;
+        &lt;/emitter&gt;
+      &lt;/emitters&gt;
+    &lt;/superScript&gt;
+</pre>
