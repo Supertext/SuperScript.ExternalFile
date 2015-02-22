@@ -9,7 +9,7 @@
 </pre>
 
 <p>
-  The default value is <code>type="text/javascript>"</code>.
+  The default value is <code>type="text/javascript"</code>.
 </p>
 
 <h3>Configuring TagAttributes</h3>
@@ -17,7 +17,8 @@
 <p>
   The following example shows the creation of a new emitter which is configured with its <abbr title="SuperScript.Emitters.IEmitter.HtmlWriter"><code>HtmlWriter</code></abbr> property
   set to an instance of <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter"><code>ExternalFileWriter</code></abbr> which has the 
-  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.TagAttributes"><code>TagAttributes</code></abbr> property set to <em>type="application/xml"</em>:
+  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.TagAttributes"><code>TagAttributes</code></abbr> property set to <em>type="application/xml"</em> and
+  an <a href="http://www.w3schools.com/tags/att_script_async.asp" target="_blank">async</a> directive:
 </p>
 
 <pre class="brush: c#">
@@ -27,7 +28,8 @@
                                               {
                                                 TagAttributes = new List&lt;KeyValuePair&lt;string, string&gt;&gt;
                                                                     {
-                                                                        new KeyValuePair&lt;string, string&gt;("type", "application/xml")
+                                                                        new KeyValuePair&lt;string, string&gt;("type", "application/xml"),
+                                                                        new KeyValuePair&lt;string, string&gt;("async", null)
                                                                     }
                                               }
                          }
@@ -44,5 +46,5 @@
 </p>
 
 <pre class="brush: html">
-  <script href="/files/[hash of the file's contents].js" type="application/xml"></script>
+  <script href="/files/[hash of the file's contents].js" type="application/xml" async></script>
 </pre>
