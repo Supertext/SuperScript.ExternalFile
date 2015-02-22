@@ -8,11 +8,11 @@
 <pre class="brush: c#">
   interface IStore
   {
-    void AddOrUpdate(IStorable storable);
+    void AddOrUpdate(SuperScript.ExternalFile.Storage.IStorable storable);
     void Delete(string key);
     void Empty();
     IStorable Get(string key);
-    IEnumerable<IStorable> GetAll();
+    IEnumerable&lt;SuperScript.ExternalFile.Storage.IStorable&gt; GetAll();
     void Init();
     void Remove();
     string StoreName { get; set; }
@@ -62,7 +62,7 @@
 	</tr>
 	<tr>
 		<td>Get</td>
-		<td>IStorable</td>
+		<td><abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr></td>
 		<td>
 			<p>
 			  Gets the instance of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> with the specified key.
