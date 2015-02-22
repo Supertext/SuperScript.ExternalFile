@@ -5,7 +5,7 @@
 </p>
 
 <pre class="brush: c#">
-  public virtual IEnumerable<KeyValuePair<string, string>> TagAttributes { get; set; }
+  public virtual IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt; TagAttributes { get; set; }
 </pre>
 
 <p>
@@ -25,9 +25,9 @@
                          {
                              HtmlWriter = new ExternalFileWriter
                                               {
-                                                TagAttributes = new List<KeyValuePair<string, string>>
+                                                TagAttributes = new List&lt;KeyValuePair&lt;string, string&gt;&gt;
                                                                     {
-                                                                        new KeyValuePair<string, string>("type", "application/xml")
+                                                                        new KeyValuePair&lt;string, string&gt;("type", "application/xml")
                                                                     }
                                               }
                          }
