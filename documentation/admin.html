@@ -4,7 +4,7 @@
   SuperScript.ExternalFile offers an administrative API for managing the external files.
 </p>
 
-<h3>Delete</h3>
+<h3 id="delete">Delete a file</h3>
 
 <p>
   SuperScript.ExternalFile allows individual files to be deleted from the content store.
@@ -35,7 +35,7 @@
   &lt;/system.webServer&gt;
 </pre>
 
-<h3>Empty</h3>
+<h3 id="empty">Empty the store</h3>
 
 <p>
   Requests that all contents are deleted from the content store.
@@ -62,6 +62,71 @@
   &lt;system.webServer&gt;
     &lt;handlers&gt;
       &lt;add name="EmptyHandler" verb="GET" path="empty" type="SuperScript.ExternalFile.Handlers.Empty" /&gt;
+    &lt;/handlers&gt;
+  &lt;/system.webServer&gt;
+</pre>
+
+<h3 id="init">Initialise the store</h3>
+
+<p>
+  Dispatches a request to the <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr> implementation to 
+  initialise the store.
+</p>
+
+<p>
+  This is achieved by navigating to the following URL:
+</p>
+
+<pre class="">
+  http://{your website URL}/init/
+</pre>
+
+<p>
+  If successful then SuperScript.ExternalFile will issue an HTTP 200 (OK) response.
+</p>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Handlers.Init"><code>Init</code></abbr> handler may be re-mapped to a different 
+  URL. To do this, simply modify the <em>path</em> attribute of the handler declaration in the config file:
+</p>
+
+<pre class="brush: xml; highlight: 3">
+  &lt;system.webServer&gt;
+    &lt;handlers&gt;
+      &lt;add name="EmptyHandler" verb="GET" path="init" type="SuperScript.ExternalFile.Handlers.Init" /&gt;
+    &lt;/handlers&gt;
+  &lt;/system.webServer&gt;
+</pre>
+
+<h3 id="list">List files in the store</h3>
+
+<p>
+  Returns a webpage enumerating all files in the store.
+</p>
+
+<p>
+  This is achieved by navigating to the following URL:
+</p>
+
+<pre class="">
+  http://{your website URL}/list/
+</pre>
+
+<p>
+  The returned webpage also offers a simple means of issuing the other commands as detailed on this page:
+</p>
+
+<img src="/images/list.png" alt="the List administrative interface" />
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Handlers.List"><code>List</code></abbr> handler may be re-mapped to a different 
+  URL. To do this, simply modify the <em>path</em> attribute of the handler declaration in the config file:
+</p>
+
+<pre class="brush: xml; highlight: 3">
+  &lt;system.webServer&gt;
+    &lt;handlers&gt;
+      &lt;add name="EmptyHandler" verb="GET" path="list" type="SuperScript.ExternalFile.Handlers.List" /&gt;
     &lt;/handlers&gt;
   &lt;/system.webServer&gt;
 </pre>
