@@ -1,0 +1,72 @@
+<h2>ContentType option</h2>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.ContentType"><code>ContentType</code></abbr> option
+  allows configuration of the <em>Content-Type</em> MIME header.
+</p>
+
+<pre class="brush: c#">
+  public string ContentType { get; set; }
+</pre>
+
+<p>
+  The default value is "text/javascript".
+</p>
+
+<h3>Configuring ContentType</h3>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.ContentType"><code>ContentType</code></abbr> option
+  may be configured programmatically or declaratively in the configuration file.
+</p>
+
+<h4>Configuring ContentType programmatically</h4>
+
+<p>
+  The following example shows the creation of a new emitter which is configured with its <abbr title="SuperScript.Emitters.IEmitter.HtmlWriter"><code>HtmlWriter</code></abbr> property
+  set to an instance of <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter"><code>ExternalFileWriter</code></abbr> which has the 
+  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.ContentType"><code>ContentType</code></abbr> property set to "application/xml":
+</p>
+
+<pre class="brush: c#">
+  IEmitter emitter = new StandardEmitter
+                         {
+                             HtmlWriter = new ExternalFileWriter
+                                              {
+                                                  ContentType = "application/xml"
+                                              }
+                         }
+</pre>
+
+<h4>Declaring ContentType in the config file</h4>
+
+<p>
+  The following example shows the same declaration as above, as declared in a config file.
+</p>
+
+<pre class="brush: xml">
+    &lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+    &lt;section name="superScript.ExternalFile" type="SuperScript.ExternalFile.Configuration.ExternalFileConfig, SuperScript.ExternalFile" /&gt;
+    &#10;
+    &lt;superScript&gt;
+      &lt;emitters&gt;
+        &lt;emitter key="externalJavascript"&gt;
+          &lt;writers&gt;
+            &lt;modifier type="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter, SuperScript.ExternalFile"&gt;
+              &lt;properties&gt;
+                &lt;property name="ContentType" value="application/xml" type="System.String, mscorlib" /&gt;
+              &lt;/properties&gt;
+            &lt;/modifier&gt;
+          &lt;/writers&gt;
+        &lt;/emitter&gt;
+      &lt;/emitters&gt;
+    &lt;/superScript&gt;
+</pre>
+
+<p>
+  Both the above examples will set the following properties in the HTTP header of the returne file:
+</p>
+
+<p>
+  <strong>Content-Type: </strong>&nbsp;"application/xml"
+</p>
