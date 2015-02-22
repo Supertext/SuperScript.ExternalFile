@@ -66,6 +66,37 @@
   &lt;/system.webServer&gt;
 </pre>
 
+<h3 id="get">Get a file</h3>
+
+<p>
+  Gets the specified file from the implementation of <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr>.
+</p>
+
+<p>
+  This is achieved by navigating to the following URL:
+</p>
+
+<pre class="">
+  http://{your website URL}/files/
+</pre>
+
+<p>
+  If successful then SuperScript.ExternalFile will respond with the file, as configured.
+</p>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Handlers.Get"><code>Get</code></abbr> handler may be re-mapped to a different 
+  URL. To do this, simply modify the <em>path</em> attribute of the handler declaration in the config file:
+</p>
+
+<pre class="brush: xml; highlight: 3">
+  &lt;system.webServer&gt;
+    &lt;handlers&gt;
+      &lt;add name="GetHandler" verb="GET" path="files" type="SuperScript.ExternalFile.Handlers.Get" /&gt;
+    &lt;/handlers&gt;
+  &lt;/system.webServer&gt;
+</pre>
+
 <h3 id="init">Initialise the store</h3>
 
 <p>
@@ -93,7 +124,7 @@
 <pre class="brush: xml; highlight: 3">
   &lt;system.webServer&gt;
     &lt;handlers&gt;
-      &lt;add name="EmptyHandler" verb="GET" path="init" type="SuperScript.ExternalFile.Handlers.Init" /&gt;
+      &lt;add name="InitHandler" verb="GET" path="init" type="SuperScript.ExternalFile.Handlers.Init" /&gt;
     &lt;/handlers&gt;
   &lt;/system.webServer&gt;
 </pre>
@@ -116,7 +147,9 @@
   The returned webpage also offers a simple means of issuing the other commands as detailed on this page:
 </p>
 
-<img src="/images/list.png" alt="the List administrative interface" />
+<p>
+  <img src="documentation/images/list.png" alt="the List administrative interface" class="img-responsive center-block" style="max-width: 60%;" />
+</p>
 
 <p>
   The <abbr title="SuperScript.ExternalFile.Handlers.List"><code>List</code></abbr> handler may be re-mapped to a different 
@@ -126,7 +159,71 @@
 <pre class="brush: xml; highlight: 3">
   &lt;system.webServer&gt;
     &lt;handlers&gt;
-      &lt;add name="EmptyHandler" verb="GET" path="list" type="SuperScript.ExternalFile.Handlers.List" /&gt;
+      &lt;add name="ListHandler" verb="GET" path="list" type="SuperScript.ExternalFile.Handlers.List" /&gt;
+    &lt;/handlers&gt;
+  &lt;/system.webServer&gt;
+</pre>
+
+<h3 id="reinit">Re-initialise the store</h3>
+
+<p>
+  Causes a request to be made to the <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr> implementation 
+  to remove and then initialise the store. This request is equivalent to sending a request to <a href="#!/admin/remove">Remove</a> followed by a request 
+  to <a href="#!/admin/init">Init</a>.
+</p>
+
+<p>
+  This is achieved by navigating to the following URL:
+</p>
+
+<pre class="">
+  http://{your website URL}/reinit/
+</pre>
+
+<p>
+  If successful then SuperScript.ExternalFile will issue an HTTP 200 (OK) response.
+</p>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Handlers.ReInit"><code>ReInit</code></abbr> handler may be re-mapped to a different 
+  URL. To do this, simply modify the <em>path</em> attribute of the handler declaration in the config file:
+</p>
+
+<pre class="brush: xml; highlight: 3">
+  &lt;system.webServer&gt;
+    &lt;handlers&gt;
+      &lt;add name="ReInitHandler" verb="GET" path="reinit" type="SuperScript.ExternalFile.Handlers.ReInit" /&gt;
+    &lt;/handlers&gt;
+  &lt;/system.webServer&gt;
+</pre>
+
+<h3 id="remove">Remove the store</h3>
+
+<p>
+  Causes a request to be made to the <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr> implementation to remove the store.
+</p>
+
+<p>
+  This is achieved by navigating to the following URL:
+</p>
+
+<pre class="">
+  http://{your website URL}/remove/
+</pre>
+
+<p>
+  If successful then SuperScript.ExternalFile will issue an HTTP 200 (OK) response.
+</p>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Handlers.ReInit"><code>Remove</code></abbr> handler may be re-mapped to a different 
+  URL. To do this, simply modify the <em>path</em> attribute of the handler declaration in the config file:
+</p>
+
+<pre class="brush: xml; highlight: 3">
+  &lt;system.webServer&gt;
+    &lt;handlers&gt;
+      &lt;add name="RemoveHandler" verb="GET" path="remove" type="SuperScript.ExternalFile.Handlers.Remove" /&gt;
     &lt;/handlers&gt;
   &lt;/system.webServer&gt;
 </pre>
