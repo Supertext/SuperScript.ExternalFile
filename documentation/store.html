@@ -8,11 +8,11 @@
 <pre class="brush: c#">
   interface IStore
   {
-    void AddOrUpdate(<abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> storable);
+    void AddOrUpdate(SuperScript.ExternalFile.Storage.IStorable storable);
     void Delete(string key);
     void Empty();
     IStorable Get(string key);
-    IEnumerable&lt;<abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr>&gt; GetAll();
+    IEnumerable&lt;SuperScript.ExternalFile.Storage.IStorable&gt; GetAll();
     void Init();
     void Remove();
     string StoreName { get; set; }
