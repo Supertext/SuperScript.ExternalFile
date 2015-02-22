@@ -1,7 +1,7 @@
 <h2>CacheForTimePeriod option</h2>
 
 <p>
-  The <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalScriptWriter.CacheForTimePeriod"><code>CacheForTimePeriod</code></abbr> option
+  The <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.CacheForTimePeriod"><code>CacheForTimePeriod</code></abbr> option
   allows configuration of the <em>Cache-Control</em> header.
 </p>
 
@@ -20,7 +20,7 @@
 <h3>Configuring CacheForTimePeriod</h3>
 
 <p>
-  The <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalScriptWriter.CacheForTimePeriod"><code>CacheForTimePeriod</code></abbr> option
+  The <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.CacheForTimePeriod"><code>CacheForTimePeriod</code></abbr> option
   may be configured programmatically or declaratively in the configuration file.
 </p>
 
@@ -28,14 +28,14 @@
 
 <p>
   The following example shows the creation of a new emitter which is configured with its <abbr title="SuperScript.Emitters.IEmitter.HtmlWriter"><code>HtmlWriter</code></abbr> property
-  set to an instance of <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalScriptWriter"><code>ExternalScriptWriter</code></abbr> which has the 
-  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalScriptWriter.CacheForTimePeriod"><code>CacheForTimePeriod</code></abbr> property set to 3 days:
+  set to an instance of <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter"><code>ExternalScriptWriter</code></abbr> which has the 
+  <abbr title="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter.CacheForTimePeriod"><code>CacheForTimePeriod</code></abbr> property set to 3 days:
 </p>
 
 <pre class="brush: c#">
   IEmitter emitter = new StandardEmitter
                          {
-                             HtmlWriter = new ExternalScriptWriter
+                             HtmlWriter = new ExternalFileWriter
                                               {
                                                   CacheForTimePeriod = new TimeSpan(3, 0, 0, 0)
                                               }
@@ -56,7 +56,7 @@
       &lt;emitters&gt;
         &lt;emitter key="externalJavascript"&gt;
           &lt;writers&gt;
-            &lt;modifier type="SuperScript.ExternalFile.Modifiers.Writers.ExternalScriptWriter, SuperScript.ExternalFile"&gt;
+            &lt;modifier type="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter, SuperScript.ExternalFile"&gt;
               &lt;properties&gt;
                 &lt;property name="CacheForTimePeriod" value="3.00:00:00" type="System.TimeSpan, mscorlib" /&gt;
               &lt;/properties&gt;
