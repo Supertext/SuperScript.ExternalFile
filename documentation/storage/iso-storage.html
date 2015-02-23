@@ -1,0 +1,49 @@
+<h2 id="iso-storage">Isolated Storage</h2>
+
+<p>
+  The default, out of the box storage option provided by SuperScript.ExternalFile is isolated storage.
+</p>
+
+<p>
+  This is implemented by <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr>.
+</p>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr> provider offers a secure storage 
+  location which keeps its contents visible only to the permitted application. This is particularly useful on a shared server.
+</p>
+
+<h4 id="conf-iso-storage">Configuring Isolated Storage</h4>
+
+<p>
+  Although <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr> is pre-configured as the default 
+  storage provider, the following example shows how this may be explicitly configured.
+</p>
+
+<pre class="brush: xml; highlight: 9">
+  &lt;configuration&gt;
+    &lt;configSections&gt;
+    &lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+    &lt;section name="superScript.ExternalFile" type="SuperScript.ExternalFile.Configuration.ExternalFileConfig, SuperScript.ExternalFile" /&gt;
+    &lt;/configSections&gt;
+  &lt;/configuration&gt;
+  &hellip;
+  &lt;superScript.ExternalFile&gt;
+    &lt;storage type="SuperScript.ExternalFile.Storage.IsoStore, SuperScript.ExternalFile" /&gt;
+  &lt;/superScript.ExternalFile&gt;
+</pre>
+
+<p>
+	To configure <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr> in code requires an
+	extra step: the store must be explicitly initialised.
+</p>
+
+<pre class="brush: c#; highlight: 2">
+	IStore storeIso = new IsoStore();
+	storeIso.Init();
+	SuperScript.ExternalFile.Configuration.Settings.Instance.StoreProvider = storeIso;
+</pre>
+
+<p>
+	An ideal location for the above code would be in <code>global.asax</code> or a method called from <code>global.asax</code>.
+</p>
