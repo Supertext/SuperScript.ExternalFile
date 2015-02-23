@@ -151,6 +151,21 @@
   &lt;/superScript.ExternalFile&gt;
 </pre>
 
+<p>
+	To configure <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr> in code requires an
+	extra step: the store must be explicitly initialised.
+</p>
+
+<pre class="brush: c#; highlight: 2">
+	IStore storeIso = new IsoStore();
+	storeIso.Init();
+	SuperScript.ExternalFile.Configuration.Settings.Instance.StoreProvider = storeIso;
+</pre>
+
+<p>
+	An ideal location for the above code would be in <code>global.asax</code> or a method called from <code>global.asax</code>.
+</p>
+
 <h3>File Storage</h3>
 
 <p>
@@ -173,8 +188,9 @@
 
 <p>
   <strong>Important: </strong> <abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr> will store
-  the serialised instances of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> in the 
-  web application's working directory.
+  the serialised instances of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> in a directory 
+  (whose name corresponds to the <abbr title="SuperScript.ExternalFile.Storage.IStore.StoreName"><code>StoreName</code></abbr> property) under 
+  the web application's working directory.
 </p>
 
 <p>
@@ -196,4 +212,16 @@
       &lt;/properties&gt;
     &lt;/storage&gt;
   &lt;/superScript.ExternalFile&gt;
+</pre>
+
+<p>
+	As with the <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr>, configuring 
+	<abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr> in code requires that the 
+	store must be explicitly initialised.
+</p>
+
+<pre class="brush: c#; highlight: 2">
+	IStore storeFile = new FileStore();
+	storeFile.Init();
+	SuperScript.ExternalFile.Configuration.Settings.Instance.StoreProvider = storeFile;
 </pre>
