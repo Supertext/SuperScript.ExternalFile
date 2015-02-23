@@ -1,0 +1,135 @@
+<h2>External File Storage</h2>
+
+<p>
+  SuperScript.ExternalFile offers options for the location in which the file contents are stored.
+</p>
+
+<ul>
+	<li><a href="#!/storage.iso-storage">Isolated storage</a></li>
+	<li><a href="#!/storeage.file-storage">File storage</a></li>
+</ul>
+
+<p>
+	These storage options are implementations of <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr>.
+</p>
+
+<pre class="brush: c#">
+  interface IStore
+  {
+    void AddOrUpdate(SuperScript.ExternalFile.Storage.IStorable storable);
+    void Delete(string key);
+    void Empty();
+    IStorable Get(string key);
+    IEnumerable&lt;SuperScript.ExternalFile.Storage.IStorable&gt; GetAll();
+    void Init();
+    void Remove();
+    string StoreName { get; set; }
+  }
+</pre>
+
+<p>
+  All configured storage providers must derive from <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr>.
+</p>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>AddOrUpdate</td>
+		<td>void</td>
+		<td>
+			<p>
+			  Adds the specified instance of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> to 
+			  the store using the specified key. If an item exists with the specified 
+			  <abbr title="SuperScript.ExternalFile.Storage.IStorable.Key"><code>Key</code></abbr> then it will be updated.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Delete</td>
+		<td>void</td>
+		<td>
+			<p>
+			  Deletes the specified instance of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Empty</td>
+		<td>void</td>
+		<td>
+			<p>
+			  Removes all directories and instances of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> from the store.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Get</td>
+		<td><abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr></td>
+		<td>
+			<p>
+			  Gets the instance of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> with the specified key.
+			</p>
+			<p>
+			  Returns <code>null</code> if no matching keys were found.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>GetAll</td>
+		<td>IEnumerable&lt;<abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr>&gt;</td>
+		<td>
+			<p>
+			  Returns a snapshot of all <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> instances 
+			  in the store.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Init</td>
+		<td>void</td>
+		<td>
+			<p>
+			  Performs any initilisation that the store requires before items may be stored and retrieved.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Remove</td>
+		<td>void</td>
+		<td>
+			<p>
+			  Removes all traces of the store.
+			</p>
+		</td>
+	</tr>
+	<tr>
+	  <td>StoreName</td>
+	  <td>string</td>
+	  <td>
+	    <p>
+	      Gets or sets the name of the top-level directory inside the storage provider, should it be required.
+	    </p>
+	  </td>
+	</tr>
+</table>
+
+<h3 id="custom-implementations">Custom Implementations</h3>
+
+<p>
+	Custom implementations of <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr> are encouraged. So
+	long as the custom implentation derives from <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr> then
+	it may configured in exactly the same way as <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr>
+	and <abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr>.
+</p>
+
+<p>
+	If a database-based storage system is preferred (perhaps in a multi-server environment) then options are available. Please
+	take a look through the <a href="http://supertext.github.io/SuperScript.Common/#!/current-projects">current projects</a> for 
+	those projects whose name has the format <em>SuperScript.ExternalFile...</em>.
+</p>
