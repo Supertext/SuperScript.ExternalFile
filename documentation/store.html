@@ -1,8 +1,16 @@
 <h2>External File Storage</h2>
 
 <p>
-  SuperScript.ExternalFile offers options for the location in which the file contents are stored. These storage options are
-  implementations of <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr>.
+  SuperScript.ExternalFile offers options for the location in which the file contents are stored.
+</p>
+
+<ul>
+	<li><a href="#!/store/iso-storage">Isolated storage</a></li>
+	<li><a href="#!/store/file-store">File storage</a></li>
+</ul>
+
+<p>
+	These storage options are implementations of <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr>.
 </p>
 
 <pre class="brush: c#">
@@ -116,7 +124,7 @@
   SuperScript offers two storage methods out of the box.
 </p>
 
-<h3>Isolated Storage</h3>
+<h3 id="iso-storage">Isolated Storage</h3>
 
 <p>
   The default, out of the box storage option provided by SuperScript.ExternalFile is isolated storage.
@@ -131,7 +139,7 @@
   location which keeps its contents visible only to the permitted application. This is particularly useful on a shared server.
 </p>
 
-<h4>Configuring Isolated Storage</h4>
+<h4 id="conf-iso-storage">Configuring Isolated Storage</h4>
 
 <p>
   Although <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr> is pre-configured as the default 
@@ -166,7 +174,7 @@
 	An ideal location for the above code would be in <code>global.asax</code> or a method called from <code>global.asax</code>.
 </p>
 
-<h3>File Storage</h3>
+<h3 id="file-storage">File Storage</h3>
 
 <p>
   The <abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr> provider uses the host file system
@@ -179,7 +187,7 @@
   does <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr>.
 </p>
 
-<h4>Configuring File Storage</h4>
+<h4 id="conf-file-storage">Configuring File Storage</h4>
 
 <p>
   The following example shows how <abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr> may 
@@ -226,7 +234,7 @@
 	SuperScript.ExternalFile.Configuration.Settings.Instance.StoreProvider = storeFile;
 </pre>
 
-<h3>Custom Implementations</h3>
+<h3 id="custom-implementations">Custom Implementations</h3>
 
 <p>
 	Custom implementations of <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr> are encouraged. So
