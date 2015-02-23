@@ -1,0 +1,59 @@
+<h2 id="file-storage">File Storage</h2>
+
+<p>
+  The <abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr> provider uses the host file system
+  for storing serialised instances of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr>.
+</p>
+
+<p>
+  <abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr> offers the advantage of being 
+  navigable and easily viewed. However, file-based storage may not offer the same security on shared servers as 
+  does <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr>.
+</p>
+
+<h4 id="conf-file-storage">Configuring File Storage</h4>
+
+<p>
+  The following example shows how <abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr> may 
+  be configured.
+</p>
+
+<p>
+  <strong>Important: </strong> <abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr> will store
+  the serialised instances of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> in a directory 
+  (whose name corresponds to the <abbr title="SuperScript.ExternalFile.Storage.IStore.StoreName"><code>StoreName</code></abbr> property) under 
+  the web application's working directory.
+</p>
+
+<p>
+  The following example also demonstrates how to set the name of the store when declared in the config file.
+</p>
+
+<pre class="brush: xml; highlight: [8, 11]">
+  &lt;configuration&gt;
+    &lt;configSections&gt;
+    &lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+    &lt;section name="superScript.ExternalFile" type="SuperScript.ExternalFile.Configuration.ExternalFileConfig, SuperScript.ExternalFile" /&gt;
+    &lt;/configSections&gt;
+  &lt;/configuration&gt;
+  &hellip;
+  &lt;superScript.ExternalFile&gt;
+    &lt;storage type="SuperScript.ExternalFile.Storage.FileStore, SuperScript.ExternalFile"&gt;
+      &lt;properties&gt;
+        &lt;property name="StoreName" value="external-files" type="System.String, mscorlib" />
+      &lt;/properties&gt;
+    &lt;/storage&gt;
+  &lt;/superScript.ExternalFile&gt;
+</pre>
+
+<p>
+	As with the <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr>, configuring 
+	<abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr> in code requires that the 
+	store must be explicitly initialised.
+</p>
+
+<pre class="brush: c#; highlight: 2">
+	IStore storeFile = new FileStore();
+	storeFile.Init();
+	SuperScript.ExternalFile.Configuration.Settings.Instance.StoreProvider = storeFile;
+</pre>
