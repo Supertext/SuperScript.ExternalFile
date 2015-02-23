@@ -225,3 +225,12 @@
 	storeFile.Init();
 	SuperScript.ExternalFile.Configuration.Settings.Instance.StoreProvider = storeFile;
 </pre>
+
+<h3>Custom Implementations</h3>
+
+<p>
+	Custom implementations of <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr> are encouraged. So
+	long as the custom implentation derives from <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr> then
+	it may configured in exactly the same way as <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr>
+	and <abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr>.
+</p>
