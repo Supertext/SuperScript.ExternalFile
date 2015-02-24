@@ -42,7 +42,7 @@ namespace SuperScript.ExternalFile.Storage
 
 
 		/// <summary>
-		/// Deletes the entire store from the database.
+		/// Retrieves an <see cref="IStorable"/> instance from the database if an instance is found with the matching <see cref="IStorable.Key"/>.
 		/// </summary>
 		IStorable Get(string key);
 
