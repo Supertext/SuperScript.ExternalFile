@@ -1,4 +1,4 @@
-<h2 id="db-storage">Database Storage</h2>
+<h2>Database Storage</h2>
 
 <p>
   Although the <abbr title="SuperScript.ExternalFile.Storage.DbStore"><code>DbStore</code></abbr> class <em>is</em> provided
@@ -7,18 +7,174 @@
 </p>
 
 <pre class="brush: c#">
-    interface IDbStoreProvider
-  	{
-	  	AddOrUpdate(IStorable storable);
-	  	string ConnectionString { get; set; }
-	  	string DbName { get; set; }
-	  	void Delete(string key);
-	  	void DeleteStore();
-	  	IStorable Get(string key);
-	  	IEnumerable&lt;IStorable&gt; GetAll();
-	  	void Init();
-	  	string StoreName { get; set; }
-  	}
+	interface IDbStore : SuperScript.ExternalFile.Storage.IStore
+	{
+		IDbStoreProvider DbStoreProvider { get; set; }
+	}
+</pre>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tr>
+	  <td>DbStoreProvider</td>
+	  <td>IDbStoreProvider</td>
+	  <td>
+		<p>
+			An instance of <abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr> which 
+			contains the instructions for initialising a database-based implementation of 
+			<abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr>.
+		</p>
+	  </td>
+	</tr>
+</table>
+
+<h3 id="db-store">The DbStore class</h3>
+
+<p>
+	SuperScript.ExternalFile provides an implementation of 
+	<abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr>, unsurprisingly called
+	<abbr title="SuperScript.ExternalFile.Storage.DbStore"><code>DbStore</code></abbr>.
+</p>
+
+<pre class="brush: c#">
+	public class DbStore : SuperScript.ExternalFile.Storage.IDbStore
+	{
+		AddOrUpdate(IStorable storable);
+		IDbStoreProvider DbStoreProvider { get; set; }
+		void Delete(string key);
+		void Empty();
+		IStorable Get(string key);
+		IEnumerable&lt;IStorable&gt; GetAll();
+		void Init();
+		void Remove { get; set; }
+		string StoreName { get; set; }
+	}
+</pre>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>AddOrUpdate</td>
+		<td>void</td>
+		<td>
+			<p>
+				Adds the specified instance of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> to the 
+				store using the specified key. If an item exists with the specified <abbr title="SuperScript.ExternalFile.Storage.IStorable.Key"><code>Key</code></abbr> 
+				then it will be updated.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>DbStoreProvider</td>
+		<td><abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr></td>
+		<td>
+			<p>
+				An instance of <abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr> which 
+				contains the instructions for initialising a database-based implementation of 
+				<abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Delete</td>
+		<td>void</td>
+		<td>
+			<p>
+				Deletes the instance of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> which 
+				has been stored against the specified <abbr title="SuperScript.ExternalFile.Storage.IStorable.Key"><code>Key</code></abbr>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Empty</td>
+		<td>void</td>
+		<td>
+			<p>
+				Removes all files and directories from the store.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Get</td>
+		<td><abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr></td>
+		<td>
+			<p>
+				Retrieves an <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> instance from 
+				the database if an instance is found with the matching 
+				<abbr title="SuperScript.ExternalFile.Storage.IStorable.Key"><code>Key</code></abbr>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>GetAll</td>
+		<td>IEnumerable&lt;<abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr>&gt;</td>
+		<td>
+			<p>
+				Returns a snapshot of all <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> instances in the store.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>StoreName</td>
+		<td>string</td>
+		<td>
+			<p>
+				Gets or sets the name of the table inside the database.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Init</td>
+		<td>void</td>
+		<td>
+			<p>
+				Checks that the store (a database table) exists. If not, the store will be created.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Remove</td>
+		<td>void</td>
+		<td>
+			<p>
+				Removes all traces of the store.
+			</p>
+		</td>
+	</tr>
+</table>
+
+<h3 id="db-store-provider">Database Provider</h3>
+
+<p>
+	As explained, the <abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr> and the 
+	<abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr> go hand-in-hand.
+</p>
+
+<pre class="brush: c#">
+	interface IDbStoreProvider
+	{
+		AddOrUpdate(IStorable storable);
+		string ConnectionString { get; set; }
+		string DbName { get; set; }
+		void Delete(string key);
+		void DeleteStore();
+		IStorable Get(string key);
+		IEnumerable&lt;IStorable&gt; GetAll();
+		void Init();
+		string StoreName { get; set; }
+	}
 </pre>
 
 <table class="table table-bordered">
