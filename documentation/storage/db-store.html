@@ -1,9 +1,8 @@
 <h2>Database Storage</h2>
 
 <p>
-  Although the <abbr title="SuperScript.ExternalFile.Storage.DbStore"><code>DbStore</code></abbr> class <em>is</em> provided
-  out of the box, a configured instance of this class is not sufficient for storing the contents. An instance of 
-  <abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr> must also be configured.
+	SuperScript.ExternalFile provides a means for storing the contents of the external file in a database. Such a means is 
+	provided by an implementation of <abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr>.
 </p>
 
 <pre class="brush: c#">
@@ -23,7 +22,7 @@
 	</thead>
 	<tr>
 	  <td>DbStoreProvider</td>
-	  <td>IDbStoreProvider</td>
+	  <td><abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr></td>
 	  <td>
 		<p>
 			An instance of <abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr> which 
@@ -33,6 +32,12 @@
 	  </td>
 	</tr>
 </table>
+
+<p>
+  Although an implementation of <abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr> <em>is</em> provided
+  out of the box, a configured implementation is not sufficient for storing the contents. An instance of 
+  <abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr> must also be configured.
+</p>
 
 <h3 id="db-store">The DbStore class</h3>
 
