@@ -5,12 +5,34 @@
 	provided by an implementation of <abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr>.
 </p>
 
+<p>
+	However, although <abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr> offers the methods, 
+	properties, <em>etc.</em> for achieving this, an implementation of <abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr>
+	on its own is not sufficient: for storing the contents of external files in a database SuperScript.ExternalFile not only 
+	requires an <abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr>, it also requires an object
+	which contains information specific to the <em>type</em> of underlying database, and this is supplied by an implementation of 
+	<abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr>.
+</p>
+
+<p>
+	First of all, let's take a look at the <abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr> 
+	interface which, as is the case with <abbr title="SuperScript.ExternalFile.Storage.IsoStore"><code>IsoStore</code></abbr> and
+	<abbr title="SuperScript.ExternalFile.Storage.FileStore"><code>FileStore</code></abbr>, derives from 
+	<abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr>.
+</p>
+
 <pre class="brush: c#">
 	interface IDbStore : SuperScript.ExternalFile.Storage.IStore
 	{
 		IDbStoreProvider DbStoreProvider { get; set; }
 	}
 </pre>
+
+<p>
+	<abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr> adds only a single property to the 
+	members provided by <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr>, and this is the 
+	property which instructs SuperScript.ExternalFile about the underlying database.
+</p>
 
 <table class="table table-bordered">
 	<thead>
@@ -31,12 +53,103 @@
 		</p>
 	  </td>
 	</tr>
+	<tr>
+		<td colspan="3">
+			Inherited members
+		</td>
+	</tr>
+	<tr>
+		<td>AddOrUpdate</td>
+		<td>void</td>
+		<td>
+			<p>
+				Adds the specified instance of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> to 
+				the store using the specified key. If an item exists with the specified 
+				<abbr title="SuperScript.ExternalFile.Storage.IStorable.Key"><code>Key</code></abbr> then it will be updated.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Delete</td>
+		<td>void</td>
+		<td>
+			<p>
+				Deletes the specified instance of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Empty</td>
+		<td>void</td>
+		<td>
+			<p>
+				Removes all directories and instances of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> from the store.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Get</td>
+		<td><abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr></td>
+		<td>
+			<p>
+				Gets the instance of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> with the specified key.
+			</p>
+			<p>
+				Returns <code>null</code> if no matching keys were found.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>GetAll</td>
+		<td>IEnumerable&lt;<abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr>&gt;</td>
+		<td>
+			<p>
+				Returns a snapshot of all <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> instances 
+				in the store.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Init</td>
+		<td>void</td>
+		<td>
+			<p>
+				Performs any initilisation that the store requires before items may be stored and retrieved.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Remove</td>
+		<td>void</td>
+		<td>
+			<p>
+				Removes all traces of the store.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>StoreName</td>
+		<td>string</td>
+		<td>
+			<p>
+				Gets or sets the name of the top-level directory inside the storage provider, should it be required.
+			</p>
+		</td>
+	</tr>
 </table>
 
 <p>
-  Although an implementation of <abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr> <em>is</em> provided
-  out of the box, a configured implementation is not sufficient for storing the contents. An instance of 
-  <abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr> must also be configured.
+	Although an implementation of <abbr title="SuperScript.ExternalFile.Storage.IDbStore"><code>IDbStore</code></abbr> <em>is</em> provided
+	out of the box, a configured implementation is not sufficient for storing the contents, and an instance of 
+	<abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr> must also be configured,
+	SuperScript.ExternalFile does not contain any instances of 
+	<abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr>.
+</p>
+
+<p>
+	<a href="http://supertext.github.io/SuperScript.ExternalFile.SqlServer/" target="_blank">SuperScript.ExternalFile.SqlServer</a> and
+	<a href="http://supertext.github.io/SuperScript.ExternalFile.MySql/" target="_blank">SuperScript.ExternalFile.MySql</a> are two 
+	examples of <abbr title="SuperScript.ExternalFile.Storage.IDbStoreProvider"><code>IDbStoreProvider</code></abbr>.
 </p>
 
 <h3 id="db-store">The DbStore class</h3>
