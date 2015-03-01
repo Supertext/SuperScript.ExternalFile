@@ -76,8 +76,11 @@
 </p>
 
 <pre class="brush: xml">
-    &lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
-    &lt;section name="superScript.ExternalFile" type="SuperScript.ExternalFile.Configuration.ExternalFileConfig, SuperScript.ExternalFile" /&gt;
+  &lt;configuration&gt;
+    &lt;configSections&gt;
+      &lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+      &lt;section name="superScript.ExternalFile" type="SuperScript.ExternalFile.Configuration.ExternalFileConfig, SuperScript.ExternalFile" /&gt;
+    &lt;/configSections&gt;
     &hellip;
     &lt;superScript&gt;
       &lt;emitters&gt;
@@ -92,4 +95,5 @@
         &lt;/emitter&gt;
       &lt;/emitters&gt;
     &lt;/superScript&gt;
+  &lt;/configuration&gt;
 </pre>
