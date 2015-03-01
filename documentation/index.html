@@ -66,25 +66,23 @@
 			&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
 			&lt;section name="superScript.ExternalFile" type="SuperScript.ExternalFile.Configuration.ExternalFileConfig, SuperScript.ExternalFile" /&gt;
 		&lt;/configSections&gt;
+		&hellip;
+		&lt;superScript&gt;
+			&lt;emitters&gt;
+				&lt;emitter key="externalJavascript"&gt;
+					&lt;converters&gt;
+						&lt;modifier type="SuperScript.JavaScript.Modifiers.Converters.JavaScriptStringify, SuperScript.JavaScript" /&gt;
+					&lt;/converters&gt;
+					&lt;postModifiers&gt;
+						&lt;modifier type="SuperScript.JavaScript.Modifiers.Post.WhenReady, SuperScript.JavaScript" /&gt;
+					&lt;/postModifiers&gt;
+					&lt;writers&gt;
+						&lt;modifier type="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter, SuperScript.ExternalFile" /&gt;
+					&lt;/writers&gt;
+				&lt;/emitter&gt;
+			&lt;/emitters&gt;
+		&lt;/superScript&gt;
 	&lt;/configuration&gt;
-	&#10;
-	&hellip;
-	&#10;
-	&lt;superScript&gt;
-		&lt;emitters&gt;
-			&lt;emitter key="externalJavascript"&gt;
-				&lt;converters&gt;
-					&lt;modifier type="SuperScript.JavaScript.Modifiers.Converters.JavaScriptStringify, SuperScript.JavaScript" /&gt;
-				&lt;/converters&gt;
-				&lt;postModifiers&gt;
-					&lt;modifier type="SuperScript.JavaScript.Modifiers.Post.WhenReady, SuperScript.JavaScript" /&gt;
-				&lt;/postModifiers&gt;
-				&lt;writers&gt;
-					&lt;modifier type="SuperScript.ExternalFile.Modifiers.Writers.ExternalFileWriter, SuperScript.ExternalFile" /&gt;
-				&lt;/writers&gt;
-			&lt;/emitter&gt;
-		&lt;/emitters&gt;
-	&lt;/superScript&gt;
 </pre>
 
 <p>
