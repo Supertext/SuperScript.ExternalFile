@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentScheduler">
+      <HintPath>..\..\SuperScript Test\packages\FluentScheduler.3.1.45\lib\net40\FluentScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -49,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Classes\HandlerMappings.cs" />
+    <Compile Include="Configuration\Classes\ScavengerElement.cs" />
     <Compile Include="Configuration\Classes\Storage\DbStorageProvider\DbProviderElement.cs" />
     <Compile Include="Configuration\Classes\Storage\StorageElement.cs" />
     <Compile Include="Configuration\Classes\ExternalFileConfig.cs" />
@@ -84,6 +88,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>List.resx</DependentUpon>
     </Compile>
+    <Compile Include="Scavenger.cs" />
+    <Compile Include="SchedulerRegistry.cs" />
     <Compile Include="Storage\Implementations\DbStore.cs" />
     <Compile Include="Storage\Implementations\FileStore.cs" />
     <Compile Include="Storage\Interfaces\IDbStore.cs" />
@@ -110,6 +116,7 @@
     <Content Include="Handlers\ReInit.ashx" />
     <Content Include="Handlers\Remove.ashx" />
     <Content Include="Handlers\List.ashx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Handlers\Get.ashx" />
@@ -119,6 +126,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>List.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scheduling\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

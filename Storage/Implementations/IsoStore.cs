@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Linq;
 using System.Web.Script.Serialization;
 using SuperScript.ExternalFile.Storage.Exceptions;
 
@@ -299,6 +300,40 @@ namespace SuperScript.ExternalFile.Storage
 
 			EmptyRecursive(StoreName);
 		}
+
+
+        /// <summary>
+        /// Removes instances of <see cref="IStorable"/> which are older than the specified <see cref="TimeSpan"/>.
+        /// </summary>
+        /// <param name="removeThreshold">Instances of <see cref="IStorable"/> which are older than this will be removed from the store.</param>
+        public void Scavenge(TimeSpan removeThreshold)
+        {
+            if (!_init)
+            {
+                throw new NotInitialisedException();
+            }
+
+            if (String.IsNullOrWhiteSpace(StoreName))
+            {
+                throw new MissingStorageConfigurationException("No StoreName has been set on the instance of IsoStore.");
+            }
+
+            if (!_storeExists)
+            {
+                throw new MissingStorageDirectoryException();
+            }
+
+            using (var isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly | IsolatedStorageScope.Domain, null, null))
+            {
+                var olderThan = DateTime.Now.Subtract(removeThreshold);
+                var fileNames = isoStore.GetFileNames(StoreName + @"/*");
+                foreach (var fullName in fileNames.Select(filename => StoreName + "//" + filename)
+                                                  .Where(fullName => isoStore.GetCreationTime(fullName) <= olderThan))
+                {
+                    isoStore.DeleteFile(fullName);
+                }
+            }
+        }
 
 		#endregion
 	}

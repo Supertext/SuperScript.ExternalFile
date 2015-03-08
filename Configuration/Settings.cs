@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using SuperScript.ExternalFile.ExtensionMethods;
 using SuperScript.ExternalFile.Storage;
 
+
 namespace SuperScript.ExternalFile.Configuration
 {
     /// <summary>
@@ -20,11 +21,35 @@ namespace SuperScript.ExternalFile.Configuration
 			    "system.web",
 			    "system.webServer"
 		    };
+        private TimeSpan _scavengeItemsOlderThan = new TimeSpan(1, 0, 0);
+        private TimeSpan _scavengePeriod = new TimeSpan(1, 0, 0);
 
 
         #region Properties
 
 	    public HandlerMappings HandlerMappings { get; private set; }
+
+
+        /// <summary>
+        /// <para>Gets or sets how old an <see cref="IStorable"/> should be in order to be scavenged.</para>
+        /// <para>Default value is 1 hour.</para>
+        /// </summary>
+        public TimeSpan ScavengeItemsOlderThan
+        {
+            get { return _scavengeItemsOlderThan; }
+            set { _scavengeItemsOlderThan = value; }
+        }
+
+
+        /// <summary>
+        /// <para>Gets or sets how often the ExternalFile scavenger should clear out old instances of <see cref="IStorable"/>.</para>
+        /// <para>Default value is 1 hour.</para>
+        /// </summary>
+        public TimeSpan ScavengePeriod
+        {
+            get { return _scavengePeriod; }
+            set { _scavengePeriod = value; }
+        }
 
 
         public IStore StoreProvider { get; set; }
@@ -55,7 +80,20 @@ namespace SuperScript.ExternalFile.Configuration
 			    return;
 		    }
 
-		    StoreProvider = config.StorageProvider.ToStorageProvider();
+	        if (config.Scavenger != null)
+	        {
+	            if (config.Scavenger.ScavengeItemsOlderThan.HasValue)
+	            {
+	                ScavengeItemsOlderThan = config.Scavenger.ScavengeItemsOlderThan.Value;
+	            }
+
+	            if (config.Scavenger.ScavengePeriod.HasValue)
+	            {
+	                ScavengePeriod = config.Scavenger.ScavengePeriod.Value;
+	            }
+	        }
+
+	        StoreProvider = config.StorageProvider.ToStorageProvider();
 		    StoreProvider.Init();
 
 		    if (config.StorageProvider.EmptyOnStartup)

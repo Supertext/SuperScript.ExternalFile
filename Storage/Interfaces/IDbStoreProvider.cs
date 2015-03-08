@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
 
 namespace SuperScript.ExternalFile.Storage
 {
@@ -56,7 +58,14 @@ namespace SuperScript.ExternalFile.Storage
 		/// <summary>
 		/// Checks that the store (a database table) exists. If not, the store will be created.
 		/// </summary>
-		void Init();
+        void Init();
+
+
+        /// <summary>
+        /// Removes instances of <see cref="IStorable"/> which are older than the specified <see cref="TimeSpan"/>.
+        /// </summary>
+        /// <param name="removeThreshold">Instances of <see cref="IStorable"/> which are older than this will be removed from the store.</param>
+        void Scavenge(TimeSpan removeThreshold);
 
 
 		/// <summary>

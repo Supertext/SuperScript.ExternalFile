@@ -6,6 +6,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 using SuperScript.ExternalFile.Storage.Exceptions;
 
+
 namespace SuperScript.ExternalFile.Storage
 {
     /// <summary>
@@ -103,7 +104,7 @@ namespace SuperScript.ExternalFile.Storage
 
             if (String.IsNullOrWhiteSpace(StoreName))
             {
-                throw new MissingStorageConfigurationException("No StoreName has been set on the instance of IsoStore.");
+                throw new MissingStorageConfigurationException("No StoreName has been set on the instance of FileStore.");
             }
 
 			File.Delete(Path.Combine(DirectoryPath, key.Replace("?", string.Empty)));
@@ -143,7 +144,7 @@ namespace SuperScript.ExternalFile.Storage
 
 		    if (String.IsNullOrWhiteSpace(StoreName))
 		    {
-			    throw new MissingStorageConfigurationException("No StoreName has been set on the instance of IsoStore.");
+			    throw new MissingStorageConfigurationException("No StoreName has been set on the instance of FileStore.");
 		    }
 
 			var path = Path.Combine(DirectoryPath, key.Replace("?", string.Empty));
@@ -172,14 +173,14 @@ namespace SuperScript.ExternalFile.Storage
 
 		    if (String.IsNullOrWhiteSpace(StoreName))
 		    {
-			    throw new MissingStorageConfigurationException("No StoreName has been set on the instance of IsoStore.");
+			    throw new MissingStorageConfigurationException("No StoreName has been set on the instance of FileStore.");
 		    }
 
 			// there should be no sub-directories, only files
 
-		    var fileInfos = Directory.EnumerateFiles(DirectoryPath).ToArray();
-		    var files = new List<IStorable>(fileInfos.Length);
-		    foreach (var file in fileInfos)
+		    var filePaths = Directory.EnumerateFiles(DirectoryPath).ToArray();
+		    var files = new List<IStorable>(filePaths.Length);
+		    foreach (var file in filePaths)
 		    {
 			    var json = File.ReadAllText(file);
 
@@ -220,12 +221,40 @@ namespace SuperScript.ExternalFile.Storage
 
 			if (String.IsNullOrWhiteSpace(StoreName))
 			{
-				throw new MissingStorageConfigurationException("No StoreName has been set on the instance of IsoStore.");
+				throw new MissingStorageConfigurationException("No StoreName has been set on the instance of FileStore.");
 			}
 
 			new DirectoryInfo(DirectoryPath).Delete(true);
 	    }
 
-	    #endregion
+
+        /// <summary>
+        /// Removes instances of <see cref="IStorable"/> which are older than the specified <see cref="TimeSpan"/>.
+        /// </summary>
+        /// <param name="removeThreshold">Instances of <see cref="IStorable"/> which are older than this will be removed from the store.</param>
+        public void Scavenge(TimeSpan removeThreshold)
+        {
+            if (!_init)
+            {
+                throw new NotInitialisedException();
+            }
+
+            if (String.IsNullOrWhiteSpace(StoreName))
+            {
+                throw new MissingStorageConfigurationException("No StoreName has been set on the instance of FileStore.");
+            }
+
+            // there should be no sub-directories, only files
+
+            var olderThan = DateTime.Now.Subtract(removeThreshold);
+            var info = new DirectoryInfo(DirectoryPath);
+            var fileInfos = info.GetFiles().Where(p => p.CreationTime <= olderThan).ToArray();
+            foreach (var file in fileInfos)
+            {
+                File.Delete(file.FullName);
+            }
+        }
+
+        #endregion
     }
 }

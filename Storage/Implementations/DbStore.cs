@@ -187,6 +187,26 @@ namespace SuperScript.ExternalFile.Storage
 			DbStoreProvider.DeleteStore();
 		}
 
-		#endregion
+
+	    /// <summary>
+	    /// Removes instances of <see cref="IStorable"/> which are older than the specified <see cref="TimeSpan"/>.
+	    /// </summary>
+	    /// <param name="removeThreshold">Instances of <see cref="IStorable"/> which are older than this will be removed from the store.</param>
+	    public void Scavenge(TimeSpan removeThreshold)
+        {
+            if (!_init)
+            {
+                throw new NotInitialisedException();
+            }
+
+            if (DbStoreProvider == null)
+            {
+                throw new ConfigurablePropertyNotSpecifiedException("No instance of DbStoreProvider has been configured on the DbStore object.");
+            }
+
+            DbStoreProvider.Scavenge(removeThreshold);
+	    }
+
+	    #endregion
 	}
 }
