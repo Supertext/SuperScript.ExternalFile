@@ -129,6 +129,83 @@
 	</tr>
 </table>
 
+<h3 id="config">Configuration</h3>
+
+<p>
+	Configuring each of the implementations of <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr> is
+	covered in the documentation for each implementation. However, there is one common feature which will be covered here: <em>scavenging</em>.
+</p>
+
+<h4>Scavenging</h4>
+
+<p>
+	<em>Scavenging</em> is the process of clearing up outdated instances of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr>. 
+	This is carried out in a background process, and SuperScript.ExternalFile allows two properties to be configured:
+</p>
+
+<dl>
+	<dt><code>TimeSpan</code> <abbr title="SuperScript.ExternalFile.Configuration.Settings.Instance.ScavengePeriod"><code>ScavengePeriod</code></abbr></dt>
+	<dd>
+		<p>
+			Gets or sets how often the scavenger should clear out old instances of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr>.
+		</p>
+		<p>
+			<strong>Optional</strong>. Default value is 1 hour.
+		</p>
+	</dd>
+	<dt><code>TimeSpan</code> <abbr title="SuperScript.ExternalFile.Configuration.Settings.Instance.ScavengeItemsOlderThan"><code>ScavengeItemsOlderThan</code></abbr></dt>
+	<dd>
+		<p>
+			Gets or sets how old an <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> should be in order to be scavenged.
+		</p>
+		<p>
+			<strong>Optional</strong>. Default value is 1 hour.
+		</p>
+	</dd>
+</dl>
+
+The above properties may be declared in the configuration file:
+
+
+
+<pre class="brush: xml">
+	&lt;configuration&gt;
+		&lt;configSections&gt;
+			&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+			&lt;section name="superScript.ExternalFile" type="SuperScript.ExternalFile.Configuration.ExternalFileConfig, SuperScript.ExternalFile" /&gt;
+		&lt;/configSections&gt;
+		&hellip;
+		&lt;superScript.ExternalFile&gt;
+			&lt;scavenger scavengeItemsOlderThan="00:00:10" scavengePeriod="00:00:10" /&gt;
+		&lt;/superScript.ExternalFile&gt;
+	&lt;/configuration&gt;
+</pre>
+
+<p>
+	Internally, SuperScript.ExternalFile calls <code>TimeSpan.Parse</code> to parse the declared value in the configuration file.
+	More details about this method can be read <a href="https://msdn.microsoft.com/en-us/library/se73z7b9%28v=vs.110%29.aspx" target="_blank">here</a>.
+</p>
+
+<p>
+	Alternatively, the above properties may also be declared programmatically:
+</p>
+
+<pre class="brush: xml">	
+	SuperScript.ExternalFile.Configuration.Settings.Instance.ScavengePeriod = new TimeSpan(0, 0, 10);
+	
+	SuperScript.ExternalFile.Configuration.Settings.Instance.ScavengeItemsOlderThan = new TimeSpan(0, 0, 10);
+</pre>
+
+<p>
+	Both of the above examples set the <abbr title="SuperScript.ExternalFile.Configuration.Settings.Instance.ScavengePeriod"><code>ScavengePeriod</code></abbr> and
+	<abbr title="SuperScript.ExternalFile.Configuration.Settings.Instance.ScavengeItemsOlderThan"><code>ScavengeItemsOlderThan</code></abbr> properties
+	to a <code>TimeSpan</code> indicating 10 minutes.
+</p>
+
+<p>
+	Once again, the default value is 1 hour.
+</p>
+
 <h3 id="custom-implementations">Custom Implementations</h3>
 
 <p>
