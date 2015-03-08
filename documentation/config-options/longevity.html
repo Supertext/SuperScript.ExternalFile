@@ -34,13 +34,13 @@
 
 <p>
   <strong>Important: </strong> If set to <abbr title="SuperScript.Longevity.SingleUse"><code>Longevity.Reuse</code></abbr>, 
-  SuperScript.ExternalFile will not delete the contents of the file from the store. Such files must be deleted using the
-  administration interface.
+  SuperScript.ExternalFile will automatically <em>scavenge</em> (<em>i.e.</em>, delete) that instance of 
+  <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr>.
 </p>
 
 <p>
-  Automatic deletion of <abbr title="SuperScript.Longevity.SingleUse"><code>Longevity.Reuse</code></abbr> files will be supported
-  in a future release of SuperScript.ExternalFile.
+  To read more about scavenging and its options, read about configuring <abbr title="SuperScript.ExternalFile.Storage.IStore"><code>IStore</code></abbr>
+  <a href="#!/storage.istore/config">here</a>.
 </p>
 
 <h3>Configuring Longevity</h3>
