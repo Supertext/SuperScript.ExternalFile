@@ -127,6 +127,15 @@
 		</td>
 	</tr>
 	<tr>
+		<td>Scavenge</td>
+		<td>void</td>
+		<td>
+			<p>
+				Removes instances of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> which are older than the specified <code>TimeSpan</code>.
+			</p>
+		</td>
+	</tr>
+	<tr>
 		<td>StoreName</td>
 		<td>string</td>
 		<td>
@@ -173,6 +182,7 @@
 		IEnumerable&lt;IStorable&gt; GetAll();
 		void Init();
 		void Remove { get; set; }
+		void Scavenge(TimeSpan removeThreshold);
 		string StoreName { get; set; }
 	}
 </pre>
@@ -279,6 +289,15 @@
 				Returns a snapshot of all <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> instances in the store.
 			</p>
 		  </td>
+	</tr>
+	<tr>
+		<td>Scavenge</td>
+		<td>void</td>
+		<td>
+			<p>
+				Removes instances of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> which are older than the specified <code>TimeSpan</code>.
+			</p>
+		</td>
 	</tr>
 	<tr>
 		<td>StoreName</td>
