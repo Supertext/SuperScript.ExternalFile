@@ -14,18 +14,18 @@
 </p>
 
 <pre class="brush: c#">
-  interface IStore
-  {
-    void AddOrUpdate(SuperScript.ExternalFile.Storage.IStorable storable);
-    void Delete(string key);
-    void Empty();
-    IStorable Get(string key);
-    IEnumerable&lt;SuperScript.ExternalFile.Storage.IStorable&gt; GetAll();
-    void Init();
-    void Remove();
-    void Scavenge(TimeSpan removeThreshold);
-    string StoreName { get; set; }
-  }
+	interface IStore
+	{
+		void AddOrUpdate(SuperScript.ExternalFile.Storage.IStorable storable);
+		void Delete(string key);
+		void Empty();
+		IStorable Get(string key);
+		IEnumerable&lt;SuperScript.ExternalFile.Storage.IStorable&gt; GetAll();
+		void Init();
+		void Remove();
+		void Scavenge(TimeSpan removeThreshold);
+		string StoreName { get; set; }
+	}
 </pre>
 
 <p>
