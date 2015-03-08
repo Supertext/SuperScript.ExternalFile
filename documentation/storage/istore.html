@@ -23,6 +23,7 @@
     IEnumerable&lt;SuperScript.ExternalFile.Storage.IStorable&gt; GetAll();
     void Init();
     void Remove();
+    void Scavenge(TimeSpan removeThreshold);
     string StoreName { get; set; }
   }
 </pre>
@@ -105,6 +106,15 @@
 		<td>
 			<p>
 			  Removes all traces of the store.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Scavenge</td>
+		<td>void</td>
+		<td>
+			<p>
+				Removes instances of <abbr title="SuperScript.ExternalFile.Storage.IStorable"><code>IStorable</code></abbr> which are older than the specified <code>TimeSpan</code>.
 			</p>
 		</td>
 	</tr>
