@@ -47,3 +47,23 @@
   routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.ReInit, new SuperScript.ExternalFile.Handlers.Routing.ReInit()));
   routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.Remove, new SuperScript.ExternalFile.Handlers.Routing.Remove()));
 </pre>
+
+<h3><a id="scheduling">Scheduling Background Tasks</a></h3>
+
+<p>
+  SuperScript.ExternalFile can be configured to scavenge out-dated files in the background. This is accomplished via the
+  <a href="https://github.com/jgeurts/FluentScheduler" target="_blank">FluentScheduler</a> library. See <a href="/#!/storage.istore/config">here</a>
+  for more information.
+</p>
+
+<p>
+  FluentScheduler requires some initialisation code:
+</p>
+
+<pre class="brush: c#">
+  FluentScheduler.TaskManager.Initialize(new SchedulerRegistry());
+</pre>
+
+<p>
+  An ideal location for this code is in the <code>SuperScriptConfig</code> class's <code>PostInit</code> method.
+</p>
