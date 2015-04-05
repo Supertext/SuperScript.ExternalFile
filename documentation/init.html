@@ -1,0 +1,48 @@
+<h2><a id="init">Initialisation</a></h2>
+
+<p>
+  In order for SuperScript.ExternalFile to handle the HTTP requests for the generated files, some additional code is required.
+</p>
+
+<p>
+  Furthermore, SuperScript.ExternalFile also requires handlers for the additional options, such as initialising the store,
+  deleting files, <i>etc.</i>
+</p>
+
+<p>
+  These handlers should be added to the config file:
+</p>
+
+<pre class="brush: xml">
+  <system.webServer>
+    <handlers>
+      <add name="DeleteHandler" verb="GET" path="delete" type="SuperScript.ExternalFile.Handlers.Delete, SuperScript.ExternalFile" />
+      <add name="EmptyHandler" verb="GET" path="empty" type="SuperScript.ExternalFile.Handlers.Empty, SuperScript.ExternalFile" />
+      <add name="GetHandler" verb="GET" path="files" type="SuperScript.ExternalFile.Handlers.Get, SuperScript.ExternalFile" />
+      <add name="InitHandler" verb="GET" path="init" type="SuperScript.ExternalFile.Handlers.Init, SuperScript.ExternalFile" />
+      <add name="ListHandler" verb="GET" path="list" type="SuperScript.ExternalFile.Handlers.List, SuperScript.ExternalFile" />
+      <add name="ReInitHandler" verb="GET" path="reinit" type="SuperScript.ExternalFile.Handlers.ReInit, SuperScript.ExternalFile" />
+      <add name="RemoveHandler" verb="GET" path="remove" type="SuperScript.ExternalFile.Handlers.Remove, SuperScript.ExternalFile" />
+    </handlers>
+  </system.webServer>
+</pre>
+
+<p>
+  If SuperScript.ExternalFile is installed via NuGet then the above configuration is inserted automatically.
+</p>
+
+<p>
+  However, if SuperScript.ExternalFile is being added to an MVC project then an additional step is required. This is because
+  the routing configuration must be made aware of these handlers. Typically, an MVC project will contain a <code>RouteConfig</code>
+  class in the <i>App_Start</i> folder - ideal location for the following code is at the end of the <code>RegisterRoutes</code>
+  method.
+</p>
+
+<pre class="brush: c#">
+  routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.Delete + `"/{filename}`", new SuperScript.ExternalFile.Handlers.Routing.Delete()));
+  routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.Empty, new SuperScript.ExternalFile.Handlers.Routing.Empty()));
+  routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.Get + `"/{filename}`", new SuperScript.ExternalFile.Handlers.Routing.Get()));
+  routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.List, new SuperScript.ExternalFile.Handlers.Routing.List()));
+  routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.ReInit, new SuperScript.ExternalFile.Handlers.Routing.ReInit()));
+  routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.Remove, new SuperScript.ExternalFile.Handlers.Routing.Remove()));
+</pre>
