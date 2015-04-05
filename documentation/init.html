@@ -39,9 +39,9 @@
 </p>
 
 <pre class="brush: c#">
-  routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.Delete + `"/{filename}`", new SuperScript.ExternalFile.Handlers.Routing.Delete()));
+  routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.Delete + "/{filename}", new SuperScript.ExternalFile.Handlers.Routing.Delete()));
   routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.Empty, new SuperScript.ExternalFile.Handlers.Routing.Empty()));
-  routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.Get + `"/{filename}`", new SuperScript.ExternalFile.Handlers.Routing.Get()));
+  routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.Get + "/{filename}", new SuperScript.ExternalFile.Handlers.Routing.Get()));
   routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.Init, new SuperScript.ExternalFile.Handlers.Routing.Init()));
   routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.List, new SuperScript.ExternalFile.Handlers.Routing.List()));
   routes.Insert(0, new Route(SuperScript.ExternalFile.Configuration.Settings.Instance.HandlerMappings.ReInit, new SuperScript.ExternalFile.Handlers.Routing.ReInit()));
@@ -61,7 +61,7 @@
 </p>
 
 <pre class="brush: c#">
-  FluentScheduler.TaskManager.Initialize(new SchedulerRegistry());
+  FluentScheduler.TaskManager.Initialize(new SuperScript.ExternalFile.SchedulerRegistry());
 </pre>
 
 <p>
