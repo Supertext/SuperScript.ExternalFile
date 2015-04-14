@@ -2,6 +2,7 @@
 using System.Net;
 using System.Web;
 using System.Web.Http;
+using System.Web.Routing;
 using SuperScript.ExternalFile.Storage;
 
 namespace SuperScript.ExternalFile.Handlers
@@ -15,12 +16,33 @@ namespace SuperScript.ExternalFile.Handlers
         private readonly IStore _storeProvider;
 
 
-		/// <summary>
+        public RequestContext RequestContext { get; set; }
+
+
+        public Get()
+        {
+            // verify that we've been given an implementation of IStore to use
+
+            _storeProvider = Configuration.Settings.Instance.StoreProvider;
+            if (_storeProvider == null)
+            {
+                throw new NotSpecifiedException("No implementation of SuperScript.ExternalFile.Storage.IStore has been specified.");
+            }
+        }
+
+
+	    public Get(RequestContext requestContext) : this()
+	    {
+	        RequestContext = requestContext;
+	    }
+
+
+	    /// <summary>
 		/// The main entry point for incoming requests.
 		/// </summary>
         public void ProcessRequest(HttpContext context)
 		{
-			// extract the required filename from the HTTP request
+	        // extract the required filename from the HTTP request
 
 			var filename = ExtractFileName(context.Request.RawUrl);
 
@@ -115,20 +137,5 @@ namespace SuperScript.ExternalFile.Handlers
 			// the key (in the URL) containing a question-mark.
 			return context.Request.RawUrl.Contains("/ignorelgvty/");
 		}
-
-
-        /// <summary>
-        /// <para>Default constructor for <see cref="Get"/>.</para>
-        /// </summary>
-        public Get()
-        {
-            // verify that we've been given an implementation of IStore to use
-
-            _storeProvider = Configuration.Settings.Instance.StoreProvider;
-            if (_storeProvider == null)
-            {
-                throw new NotSpecifiedException("No implementation of SuperScript.ExternalFile.Storage.IStore has been specified.");
-            }
-        }
     }
 }

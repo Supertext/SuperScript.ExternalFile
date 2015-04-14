@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
+using System.Web.Routing;
 using System.Xml.Linq;
 using SuperScript.ExternalFile.Storage;
 
@@ -12,7 +13,31 @@ namespace SuperScript.ExternalFile.Handlers
 	public class List : IHttpHandler
 	{
 		// the implementation of IStore to be used for processing the call
-		private readonly IStore _storeProvider;
+        private readonly IStore _storeProvider;
+
+
+        public RequestContext RequestContext { get; set; }
+
+
+        /// <summary>
+        /// <para>Default constructor for <see cref="List"/>.</para>
+        /// </summary>
+        public List()
+        {
+            // verify that we've been given an implementation of IStore to use
+
+            _storeProvider = Configuration.Settings.Instance.StoreProvider;
+            if (_storeProvider == null)
+            {
+                throw new NotSpecifiedException("No implementation of SuperScript.ExternalFile.Storage.IStore has been specified.");
+            }
+        }
+
+
+        public List(RequestContext requestContext) : this()
+        {
+            RequestContext = requestContext;
+        }
 
 
 		/// <summary>
@@ -405,21 +430,6 @@ namespace SuperScript.ExternalFile.Handlers
 							.margin-l-2em {
 								margin-left: 2em;
 							}";
-			}
-		}
-
-
-		/// <summary>
-		/// <para>Default constructor for <see cref="List"/>.</para>
-		/// </summary>
-		public List()
-		{
-			// verify that we've been given an implementation of IStore to use
-
-			_storeProvider = Configuration.Settings.Instance.StoreProvider;
-			if (_storeProvider == null)
-			{
-				throw new NotSpecifiedException("No implementation of SuperScript.ExternalFile.Storage.IStore has been specified.");
 			}
 		}
 	}

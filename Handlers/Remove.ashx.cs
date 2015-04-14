@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Web;
+using System.Web.Routing;
 using SuperScript.ExternalFile.Storage;
 
 namespace SuperScript.ExternalFile.Handlers
@@ -11,7 +12,31 @@ namespace SuperScript.ExternalFile.Handlers
 	public class Remove : IHttpHandler
 	{
 		// the implementation of IStore to be used for processing the call
-		private readonly IStore _storeProvider;
+        private readonly IStore _storeProvider;
+
+
+        public RequestContext RequestContext { get; set; }
+
+
+        /// <summary>
+        /// <para>Default constructor for <see cref="Remove"/>.</para>
+        /// </summary>
+        public Remove()
+        {
+            // verify that we've been given an implementation of IStore to use
+
+            _storeProvider = Configuration.Settings.Instance.StoreProvider;
+            if (_storeProvider == null)
+            {
+                throw new NotSpecifiedException("No implementation of SuperScript.ExternalFile.Storage.IStore has been specified.");
+            }
+        }
+
+
+        public Remove(RequestContext requestContext) : this()
+        {
+            RequestContext = requestContext;
+        }
 
 
 		/// <summary>
@@ -31,21 +56,6 @@ namespace SuperScript.ExternalFile.Handlers
 		public bool IsReusable
 		{
 			get { return false; }
-		}
-
-
-		/// <summary>
-		/// <para>Default constructor for <see cref="Remove"/>.</para>
-		/// </summary>
-		public Remove()
-		{
-			// verify that we've been given an implementation of IStore to use
-
-			_storeProvider = Configuration.Settings.Instance.StoreProvider;
-			if (_storeProvider == null)
-			{
-				throw new NotSpecifiedException("No implementation of SuperScript.ExternalFile.Storage.IStore has been specified.");
-			}
 		}
 	}
 }
